@@ -1,34 +1,100 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.App {
+  min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Marquee animation for OTT logos */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.marquee-track {
+  animation: marquee 40s linear infinite;
 }
 
-.App-link {
-    color: #61dafb;
+.marquee-track:hover {
+  animation-play-state: paused;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
+
+.marquee-track-reverse {
+  animation: marquee-reverse 45s linear infinite;
+}
+
+/* Subtle floating */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-slow { animation: float 6s ease-in-out infinite; }
+
+/* Fade in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up { animation: fadeInUp 0.7s ease forwards; }
+
+/* Slide transition */
+.slide-fade-enter { opacity: 0; transform: scale(1.02); }
+.slide-fade-enter-active { opacity: 1; transform: scale(1); transition: opacity 600ms, transform 600ms; }
+
+/* Button shine */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.6s ease;
+}
+.btn-shine:hover::after { left: 100%; }
+
+/* Plan card hover */
+.plan-card {
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
+}
+.plan-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.35);
+}
+
+/* Utility: no horizontal scrollbar on marquee */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Hero overlay */
+.hero-overlay {
+  background: linear-gradient(90deg, rgba(220,38,38,0.85) 0%, rgba(220,38,38,0.55) 45%, rgba(0,0,0,0.25) 100%);
+}
+
+/* red-dark section pattern */
+.dot-pattern {
+  background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Custom red accent */
+:root {
+  --vk-red: #dc2626;
+  --vk-red-dark: #b91c1c;
+  --vk-yellow: #fbbf24;
+  --vk-blue: #2563eb;
+  --vk-dark: #0b0b0d;
+  --vk-darker: #060607;
+}
+
+/* Scrollbar for light theme */
+::selection { background: #dc2626; color: #fff; }
