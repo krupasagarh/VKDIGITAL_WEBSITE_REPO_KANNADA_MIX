@@ -18,7 +18,7 @@ const HeroSlider = () => {
   const slide = heroSlides[idx];
 
   return (
-    <section className="relative w-full h-[560px] md:h-[640px] overflow-hidden bg-red-600">
+    <section className="relative w-full h-[560px] md:h-[640px] overflow-hidden bg-yellow-400">
       {heroSlides.map((s, i) => (
         <div
           key={s.id}
@@ -70,7 +70,7 @@ const HeroSlider = () => {
             <Button asChild className="bg-slate-900 hover:bg-black text-white rounded-full px-7 h-12 btn-shine">
               <Link to="/home-plans">View Plans / ಪ್ಲಾನ್‌ಗಳು</Link>
             </Button>
-            <Button asChild variant="outline" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-red-600 rounded-full px-7 h-12">
+            <Button asChild variant="outline" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-yellow-600 rounded-full px-7 h-12">
               <Link to="/contact">
                 <Play size={16} className="mr-2" /> Check Availability
               </Link>

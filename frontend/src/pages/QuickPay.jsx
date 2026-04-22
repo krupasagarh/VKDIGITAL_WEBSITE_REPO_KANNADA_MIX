@@ -26,7 +26,7 @@ const QuickPay = () => {
             {!done ? (
               <>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center">
                     <CreditCard size={22} />
                   </div>
                   <div>
@@ -40,7 +40,7 @@ const QuickPay = () => {
                     <IndianRupee size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                     <Input type="number" placeholder="Amount" value={form.amount} onChange={(e)=>setForm({...form, amount: e.target.value})} className="h-12 pl-10" />
                   </div>
-                  <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full h-12 btn-shine">
+                  <Button type="submit" className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 btn-shine">
                     Proceed to Pay
                   </Button>
                 </form>

@@ -23,7 +23,7 @@ const About = () => {
             className="rounded-2xl shadow-xl"
           />
           <div>
-            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">About VK Digital</p>
+            <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">About VK Digital</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900 leading-tight">
               Bringing Reliable, High-Speed Internet to Every Home & Business
             </h2>
@@ -35,14 +35,14 @@ const About = () => {
             </p>
             <div className="mt-8 grid grid-cols-2 gap-4">
               <div className="rounded-xl border border-slate-100 p-5">
-                <div className="w-10 h-10 rounded-lg bg-red-600/10 text-red-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-yellow-400/20 text-yellow-600 flex items-center justify-center">
                   <Target size={18} />
                 </div>
                 <h3 className="mt-3 font-bold text-slate-900">Our Mission</h3>
                 <p className="text-sm text-slate-600 mt-1">Connect every home with world-class internet.</p>
               </div>
               <div className="rounded-xl border border-slate-100 p-5">
-                <div className="w-10 h-10 rounded-lg bg-red-600/10 text-red-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-lg bg-yellow-400/20 text-yellow-600 flex items-center justify-center">
                   <Eye size={18} />
                 </div>
                 <h3 className="mt-3 font-bold text-slate-900">Our Vision</h3>
@@ -57,12 +57,12 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-extrabold text-slate-900">Our Core Values</h2>
-            <div className="mx-auto mt-4 w-20 h-1 bg-red-600 rounded" />
+            <div className="mx-auto mt-4 w-20 h-1 bg-yellow-400 rounded" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v) => (
               <div key={v.title} className="rounded-2xl bg-white p-7 text-center shadow-sm border border-slate-100 hover:-translate-y-1 transition-transform">
-                <div className="mx-auto w-14 h-14 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center">
+                <div className="mx-auto w-14 h-14 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center">
                   <v.icon size={24} />
                 </div>
                 <h3 className="mt-4 text-lg font-bold text-slate-900">{v.title}</h3>
@@ -76,7 +76,7 @@ const About = () => {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Testimonials</p>
+            <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Testimonials</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900">What Our Customers Say</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -84,7 +84,7 @@ const About = () => {
               <div key={t.name} className="rounded-2xl border border-slate-100 p-7 bg-slate-50">
                 <p className="text-slate-700 italic">“{t.quote}”</p>
                 <div className="mt-5 flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-full bg-red-600 text-white flex items-center justify-center font-bold">
+                  <div className="w-11 h-11 rounded-full bg-yellow-400 text-slate-900 flex items-center justify-center font-bold">
                     {t.name.charAt(0)}
                   </div>
                   <div>

@@ -40,7 +40,7 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Info */}
           <div>
-            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Get In Touch / ಸಂಪರ್ಕಿಸಿ</p>
+            <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Get In Touch / ಸಂಪರ್ಕಿಸಿ</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900 leading-tight">
               Check Availability in Your Area
             </h2>
@@ -54,7 +54,7 @@ const Contact = () => {
 
             <div className="mt-8 space-y-5">
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center shrink-0">
                   <MapPin size={20} />
                 </div>
                 <div>
@@ -63,32 +63,32 @@ const Contact = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center shrink-0">
                   <Phone size={20} />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Call Us</h4>
-                  <a href={`tel:${brand.helpdeskPhone}`} className="block text-sm text-slate-600 hover:text-red-600">
+                  <a href={`tel:${brand.helpdeskPhone}`} className="block text-sm text-slate-600 hover:text-yellow-600">
                     Helpdesk: {brand.helpdeskPhoneDisplay}
                   </a>
-                  <a href={`tel:${brand.ownerPhone}`} className="block text-sm text-slate-600 hover:text-red-600 mt-0.5">
+                  <a href={`tel:${brand.ownerPhone}`} className="block text-sm text-slate-600 hover:text-yellow-600 mt-0.5">
                     Owner: {brand.ownerPhoneDisplay}
                   </a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center shrink-0">
                   <Mail size={20} />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Email Us</h4>
-                  <a href={`mailto:${brand.email}`} className="text-sm text-slate-600 hover:text-red-600">
+                  <a href={`mailto:${brand.email}`} className="text-sm text-slate-600 hover:text-yellow-600">
                     {brand.email}
                   </a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-xl bg-red-600/10 text-red-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-yellow-400/20 text-yellow-600 flex items-center justify-center shrink-0">
                   <Clock size={20} />
                 </div>
                 <div>
@@ -109,7 +109,7 @@ const Contact = () => {
             <Input name="email" type="email" placeholder="Email Address / ಇಮೇಲ್ ವಿಳಾಸ" value={form.email} onChange={onChange} className="bg-white h-11" />
             <Input name="address" placeholder="Your Address / ವಿಳಾಸ / ಪ್ರದೇಶ" value={form.address} onChange={onChange} className="bg-white h-11" />
             <Textarea name="message" placeholder="How can we help you? / ನಾವು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?" value={form.message} onChange={onChange} className="bg-white min-h-[120px]" />
-            <Button type="submit" disabled={busy} className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full h-12 btn-shine">
+            <Button type="submit" disabled={busy} className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 btn-shine">
               {busy ? "Submitting..." : (<><Send size={16} className="mr-2" /> Submit Enquiry / ಸಲ್ಲಿಸಿ</>)}
             </Button>
           </form>

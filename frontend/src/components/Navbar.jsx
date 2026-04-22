@@ -21,17 +21,17 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50">
       {/* Top Bar */}
-      <div className="hidden md:block bg-red-600 text-white text-sm">
+      <div className="hidden md:block bg-yellow-400 text-slate-900 text-sm">
         <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <a href={`mailto:${brand.email}`} className="flex items-center gap-2 hover:text-yellow-200 transition-colors">
+            <a href={`mailto:${brand.email}`} className="flex items-center gap-2 hover:text-slate-800 transition-colors">
               <Mail size={14} /> {brand.email}
             </a>
-            <a href={`tel:${brand.phone}`} className="flex items-center gap-2 hover:text-yellow-200 transition-colors">
+            <a href={`tel:${brand.phone}`} className="flex items-center gap-2 hover:text-slate-800 transition-colors">
               <Phone size={14} /> {brand.phone}
             </a>
           </div>
-          <Link to="/quick-pay" className="flex items-center gap-1 hover:text-yellow-200 transition-colors font-medium">
+          <Link to="/quick-pay" className="flex items-center gap-1 hover:text-slate-800 transition-colors font-medium">
             <ChevronRight size={14} /> Quick Pay / ತ್ವರಿತ ಪಾವತಿ
           </Link>
         </div>
@@ -50,7 +50,7 @@ const Navbar = () => {
                 end={l.to === "/"}
                 className={({ isActive }) =>
                   `px-4 py-2 text-[15px] font-medium rounded-md transition-colors ${
-                    isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
+                    isActive ? "text-yellow-600" : "text-slate-700 hover:text-yellow-600"
                   }`
                 }
               >
@@ -60,7 +60,7 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Button asChild className="bg-red-600 hover:bg-red-700 text-white rounded-full px-5 btn-shine">
+            <Button asChild className="bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full px-5 btn-shine">
               <Link to="/login">
                 <User size={16} className="mr-1" />
                 My Account
@@ -84,14 +84,14 @@ const Navbar = () => {
                   end={l.to === "/"}
                   className={({ isActive }) =>
                     `px-3 py-2 rounded-md font-medium ${
-                      isActive ? "bg-red-50 text-red-600" : "text-slate-700"
+                      isActive ? "bg-yellow-50 text-yellow-600" : "text-slate-700"
                     }`
                   }
                 >
                   {l.label}
                 </NavLink>
               ))}
-              <Link to="/login" className="px-3 py-2 rounded-md bg-red-600 text-white font-medium text-center mt-2">
+              <Link to="/login" className="px-3 py-2 rounded-md bg-yellow-400 text-slate-900 font-medium text-center mt-2">
                 My Account
               </Link>
             </div>

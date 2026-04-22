@@ -10,7 +10,7 @@ const Ott = () => {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Streaming</p>
+            <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Streaming</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900">Popular OTT Services We Offer</h2>
             <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
               Get access to 20+ OTT applications bundled with your VK Digital broadband plan.

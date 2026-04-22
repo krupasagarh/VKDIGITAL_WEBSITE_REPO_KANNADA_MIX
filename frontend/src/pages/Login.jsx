@@ -35,12 +35,12 @@ const Login = () => {
             <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <Input name="password" type="password" placeholder="Password" value={form.password} onChange={(e)=>setForm({...form, password: e.target.value})} className="h-12 pl-10" />
           </div>
-          <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full h-12 btn-shine">
+          <Button type="submit" className="w-full bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 btn-shine">
             Sign In
           </Button>
         </form>
         <p className="mt-6 text-center text-sm text-slate-600">
-          New here? <Link to="/contact" className="text-red-600 font-medium hover:underline">Get a new connection</Link>
+          New here? <Link to="/contact" className="text-yellow-600 font-medium hover:underline">Get a new connection</Link>
         </p>
       </div>
     </section>

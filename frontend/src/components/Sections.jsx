@@ -9,7 +9,7 @@ export const SubscribeSection = () => {
     <section className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div className="relative">
-          <div className="absolute -inset-4 bg-red-600/5 rounded-3xl -z-10" />
+          <div className="absolute -inset-4 bg-yellow-400/10 rounded-3xl -z-10" />
           <img
             src={subscribeImage}
             alt="Smart TV streaming"
@@ -17,7 +17,7 @@ export const SubscribeSection = () => {
           />
         </div>
         <div>
-          <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Subscribe Now / ಈಗ ಚಂದಾದಾರರಾಗಿ</p>
+          <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Subscribe Now / ಈಗ ಚಂದಾದಾರರಾಗಿ</p>
           <h2 className="mt-3 text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
             Enjoy Sports, Movies,<br />TV Shows & More.
           </h2>
@@ -26,10 +26,10 @@ export const SubscribeSection = () => {
           </p>
           <div className="mt-8 flex items-end gap-2">
             <span className="text-slate-500 text-lg">Starts From</span>
-            <span className="text-5xl font-extrabold text-red-600 leading-none">₹399</span>
+            <span className="text-5xl font-extrabold text-yellow-600 leading-none">₹399</span>
             <span className="text-slate-500 text-lg">Per Month</span>
           </div>
-          <Button asChild className="mt-8 bg-red-600 hover:bg-red-700 text-white rounded-full h-12 px-7 btn-shine">
+          <Button asChild className="mt-8 bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 px-7 btn-shine">
             <Link to="/contact">Check Availability <ArrowRight size={16} className="ml-2" /></Link>
           </Button>
         </div>
@@ -40,12 +40,12 @@ export const SubscribeSection = () => {
 
 export const CtaSection = () => {
   return (
-    <section className="relative bg-red-600 py-16 overflow-hidden">
+    <section className="relative bg-yellow-400 py-16 overflow-hidden">
       <div className="absolute inset-0 dot-pattern opacity-40" />
       <div className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-        <h3 className="text-white text-3xl md:text-4xl font-extrabold leading-tight max-w-2xl">
-          Need Fast & Secure Internet! Use <span className="text-yellow-300">VK Digital</span>
-          <span className="block mt-2 text-lg md:text-xl font-semibold text-white/90" lang="kn">
+        <h3 className="text-slate-900 text-3xl md:text-4xl font-extrabold leading-tight max-w-2xl">
+          Need Fast & Secure Internet! Use <span className="text-white bg-slate-900 px-2 rounded">VK Digital</span>
+          <span className="block mt-2 text-lg md:text-xl font-semibold text-slate-800" lang="kn">
             ವೇಗದ ಮತ್ತು ಸುರಕ್ಷಿತ ಇಂಟರ್ನೆಟ್ ಬೇಕೇ! VK ಡಿಜಿಟಲ್ ಬಳಸಿ
           </span>
         </h3>
@@ -53,8 +53,8 @@ export const CtaSection = () => {
           <Button asChild className="bg-slate-900 hover:bg-black text-white rounded-full h-12 px-6">
             <Link to="/home-plans">View All Plans</Link>
           </Button>
-          <span className="text-white/80">or</span>
-          <a href={`tel:${brand.helpdeskPhone}`} className="text-white font-bold text-lg underline underline-offset-4 hover:text-yellow-300">
+          <span className="text-slate-800">or</span>
+          <a href={`tel:${brand.helpdeskPhone}`} className="text-slate-900 font-bold text-lg underline underline-offset-4 hover:text-white">
             {brand.helpdeskPhoneDisplay}
           </a>
         </div>
@@ -73,12 +73,12 @@ export const OttMarquee = () => {
     <section className="bg-[#0b0b0d] py-16">
       <div className="max-w-7xl mx-auto px-6 text-center mb-10">
         <h3 className="text-white text-3xl md:text-4xl font-extrabold">
-          Popular <span className="text-red-500">OTT Services</span> We Offer
+          Popular <span className="text-yellow-600">OTT Services</span> We Offer
         </h3>
         <p className="mt-2 text-lg md:text-xl font-semibold text-white/80" lang="kn">
           ನಾವು ನೀಡುವ ಜನಪ್ರಿಯ OTT ಸೇವೆಗಳು
         </p>
-        <div className="mx-auto mt-4 w-20 h-1 bg-red-600 rounded" />
+        <div className="mx-auto mt-4 w-20 h-1 bg-yellow-400 rounded" />
       </div>
 
       <div className="marquee-mask overflow-hidden">
@@ -122,7 +122,7 @@ export const FeatureStrip = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
         {items.map((it) => (
           <div key={it.title} className="text-center">
-            <div className="text-4xl md:text-5xl font-extrabold text-red-600">{it.title}</div>
+            <div className="text-4xl md:text-5xl font-extrabold text-yellow-600">{it.title}</div>
             <div className="mt-1 text-sm text-slate-600 uppercase tracking-wider">{it.sub}</div>
             <div className="text-xs text-slate-500 mt-0.5" lang="kn">{it.subKn}</div>
           </div>
