@@ -48,8 +48,8 @@ export const CtaSection = () => {
             <Link to="/home-plans">View All Plans</Link>
           </Button>
           <span className="text-white/80">or</span>
-          <a href={`tel:${brand.phone}`} className="text-white font-bold text-lg underline underline-offset-4 hover:text-yellow-300">
-            {brand.phoneDisplay}
+          <a href={`tel:${brand.helpdeskPhone}`} className="text-white font-bold text-lg underline underline-offset-4 hover:text-yellow-300">
+            {brand.helpdeskPhoneDisplay}
           </a>
         </div>
       </div>

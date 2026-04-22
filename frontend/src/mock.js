@@ -3,12 +3,17 @@
 export const brand = {
   name: "VK DIGITAL",
   tagline: "High Speed Internet Services",
+  logo: "https://customer-assets.emergentagent.com/job_plant-based-hub-4/artifacts/zcryp163_Screenshot_20260423_002424_Canva.jpg",
   email: "info@vkdigital.in",
-  phone: "+91 9900092390",
-  phoneDisplay: "+919900092390",
-  address: "No 50, 4th Cross, 4t Main, Duocity Layout, Basapura, Bangalore, Karnataka 560100.",
+  phone: "+919148287555",
+  phoneDisplay: "+91 91482 87555",
+  ownerPhone: "+917259326656",
+  ownerPhoneDisplay: "+91 72593 26656",
+  helpdeskPhone: "+919148287555",
+  helpdeskPhoneDisplay: "+91 91482 87555",
+  address: "VK DIGITAL, Near: Vijaya Nursing Home, BH Road, Tiptur 572201",
   about: "We believe it has the power to do amazing things.",
-  copyright: "\u00a9 2024-2025 VK Digital (OPC) Private Limited.. All Rights Reserved.",
+  copyright: "\u00a9 2024-2025 VK Digital. All Rights Reserved.",
 };
 
 export const navLinks = [

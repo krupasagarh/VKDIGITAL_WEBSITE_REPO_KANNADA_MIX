@@ -48,9 +48,13 @@ const Footer = () => {
           <a href={`mailto:${brand.email}`} className="block text-white font-medium mt-1 hover:text-red-500 transition-colors">
             <Mail size={14} className="inline mr-2" />{brand.email}
           </a>
-          <p className="text-sm text-slate-400 mt-6">24/7 Support center</p>
-          <a href={`tel:${brand.phone}`} className="text-red-500 font-bold text-xl mt-1 inline-flex items-center gap-2">
-            <Phone size={18} />{brand.phoneDisplay}
+          <p className="text-sm text-slate-400 mt-6">24/7 Helpdesk</p>
+          <a href={`tel:${brand.helpdeskPhone}`} className="text-red-500 font-bold text-xl mt-1 inline-flex items-center gap-2">
+            <Phone size={18} />{brand.helpdeskPhoneDisplay}
+          </a>
+          <p className="text-sm text-slate-400 mt-4">Owner</p>
+          <a href={`tel:${brand.ownerPhone}`} className="text-white font-semibold text-base mt-1 inline-flex items-center gap-2 hover:text-red-500 transition-colors">
+            <Phone size={16} />{brand.ownerPhoneDisplay}
           </a>
         </div>
       </div>

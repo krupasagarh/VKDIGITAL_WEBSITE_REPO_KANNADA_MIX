@@ -65,8 +65,11 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Call Us</h4>
-                  <a href={`tel:${brand.phone}`} className="text-sm text-slate-600 hover:text-red-600">
-                    {brand.phoneDisplay}
+                  <a href={`tel:${brand.helpdeskPhone}`} className="block text-sm text-slate-600 hover:text-red-600">
+                    Helpdesk: {brand.helpdeskPhoneDisplay}
+                  </a>
+                  <a href={`tel:${brand.ownerPhone}`} className="block text-sm text-slate-600 hover:text-red-600 mt-0.5">
+                    Owner: {brand.ownerPhoneDisplay}
                   </a>
                 </div>
               </div>
