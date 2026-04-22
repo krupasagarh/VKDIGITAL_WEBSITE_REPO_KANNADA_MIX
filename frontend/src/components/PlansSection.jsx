@@ -12,10 +12,13 @@ const PlansSection = () => {
       <div className="absolute inset-0 dot-pattern opacity-50" />
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-14">
-          <p className="text-red-500 font-bold tracking-[0.25em] text-sm uppercase">Best Network</p>
+          <p className="text-red-500 font-bold tracking-[0.25em] text-sm uppercase">Best Network / ಉತ್ತಮ ನೆಟ್‌ವರ್ಕ್</p>
           <h2 className="mt-3 text-4xl md:text-5xl font-extrabold">
             Find Perfect Network Solutions
           </h2>
+          <p className="mt-2 text-xl md:text-2xl font-semibold text-white/80" lang="kn">
+            ಪರಿಪೂರ್ಣ ನೆಟ್‌ವರ್ಕ್ ಪರಿಹಾರಗಳನ್ನು ಹುಡುಕಿ
+          </p>
           <div className="mx-auto mt-5 w-24 h-1 rounded bg-red-600" />
         </div>
 

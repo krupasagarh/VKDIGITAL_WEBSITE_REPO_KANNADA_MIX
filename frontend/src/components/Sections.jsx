@@ -17,10 +17,13 @@ export const SubscribeSection = () => {
           />
         </div>
         <div>
-          <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Subscribe Now</p>
+          <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Subscribe Now / ಈಗ ಚಂದಾದಾರರಾಗಿ</p>
           <h2 className="mt-3 text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
             Enjoy Sports, Movies,<br />TV Shows & More.
           </h2>
+          <p className="mt-3 text-lg md:text-xl font-semibold text-slate-600" lang="kn">
+            ಕ್ರೀಡೆ, ಚಲನಚಿತ್ರ, ಟಿವಿ ಶೋಗಳನ್ನು ಆನಂದಿಸಿ.
+          </p>
           <div className="mt-8 flex items-end gap-2">
             <span className="text-slate-500 text-lg">Starts From</span>
             <span className="text-5xl font-extrabold text-red-600 leading-none">₹399</span>
@@ -42,6 +45,9 @@ export const CtaSection = () => {
       <div className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         <h3 className="text-white text-3xl md:text-4xl font-extrabold leading-tight max-w-2xl">
           Need Fast & Secure Internet! Use <span className="text-yellow-300">VK Digital</span>
+          <span className="block mt-2 text-lg md:text-xl font-semibold text-white/90" lang="kn">
+            ವೇಗದ ಮತ್ತು ಸುರಕ್ಷಿತ ಇಂಟರ್ನೆಟ್ ಬೇಕೇ! VK ಡಿಜಿಟಲ್ ಬಳಸಿ
+          </span>
         </h3>
         <div className="flex flex-wrap gap-3 items-center">
           <Button asChild className="bg-slate-900 hover:bg-black text-white rounded-full h-12 px-6">
@@ -69,6 +75,9 @@ export const OttMarquee = () => {
         <h3 className="text-white text-3xl md:text-4xl font-extrabold">
           Popular <span className="text-red-500">OTT Services</span> We Offer
         </h3>
+        <p className="mt-2 text-lg md:text-xl font-semibold text-white/80" lang="kn">
+          ನಾವು ನೀಡುವ ಜನಪ್ರಿಯ OTT ಸೇವೆಗಳು
+        </p>
         <div className="mx-auto mt-4 w-20 h-1 bg-red-600 rounded" />
       </div>
 
@@ -103,10 +112,10 @@ export const OttMarquee = () => {
 
 export const FeatureStrip = () => {
   const items = [
-    { title: "500+ Mbps", sub: "Ultra Fast Speed" },
-    { title: "24/7", sub: "Customer Support" },
-    { title: "350+", sub: "Live TV Channels" },
-    { title: "20+", sub: "OTT Applications" },
+    { title: "500+ Mbps", sub: "Ultra Fast Speed", subKn: "ಅತಿ ವೇಗದ ಸ್ಪೀಡ್" },
+    { title: "24/7", sub: "Customer Support", subKn: "ಗ್ರಾಹಕ ಬೆಂಬಲ" },
+    { title: "350+", sub: "Live TV Channels", subKn: "ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು" },
+    { title: "20+", sub: "OTT Applications", subKn: "OTT ಅಪ್ಲಿಕೇಶನ್‌ಗಳು" },
   ];
   return (
     <section className="bg-white border-y border-slate-100 py-10">
@@ -115,6 +124,7 @@ export const FeatureStrip = () => {
           <div key={it.title} className="text-center">
             <div className="text-4xl md:text-5xl font-extrabold text-red-600">{it.title}</div>
             <div className="mt-1 text-sm text-slate-600 uppercase tracking-wider">{it.sub}</div>
+            <div className="text-xs text-slate-500 mt-0.5" lang="kn">{it.subKn}</div>
           </div>
         ))}
       </div>

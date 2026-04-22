@@ -25,7 +25,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white font-semibold text-lg mb-5">Quick Links</h4>
+          <h4 className="text-white font-semibold text-lg mb-5">Quick Links <span className="text-sm font-normal text-slate-400" lang="kn">/ ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು</span></h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/about" className="hover:text-red-500 transition-colors">About Company</Link></li>
             <li><Link to="/ott" className="hover:text-red-500 transition-colors">OTT Packages</Link></li>
@@ -36,7 +36,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h4 className="text-white font-semibold text-lg mb-5">Address:</h4>
+          <h4 className="text-white font-semibold text-lg mb-5">Address: <span className="text-sm font-normal text-slate-400" lang="kn">/ ವಿಳಾಸ</span></h4>
           <div className="flex gap-3 text-sm text-slate-400">
             <MapPin size={18} className="text-red-500 shrink-0 mt-0.5" />
             <p>{brand.address}</p>
@@ -48,11 +48,11 @@ const Footer = () => {
           <a href={`mailto:${brand.email}`} className="block text-white font-medium mt-1 hover:text-red-500 transition-colors">
             <Mail size={14} className="inline mr-2" />{brand.email}
           </a>
-          <p className="text-sm text-slate-400 mt-6">24/7 Helpdesk</p>
+          <p className="text-sm text-slate-400 mt-6">24/7 Helpdesk <span lang="kn">/ ಸಹಾಯವಾಣಿ</span></p>
           <a href={`tel:${brand.helpdeskPhone}`} className="text-red-500 font-bold text-xl mt-1 inline-flex items-center gap-2">
             <Phone size={18} />{brand.helpdeskPhoneDisplay}
           </a>
-          <p className="text-sm text-slate-400 mt-4">Owner</p>
+          <p className="text-sm text-slate-400 mt-4">Owner <span lang="kn">/ ಮಾಲೀಕರು</span></p>
           <a href={`tel:${brand.ownerPhone}`} className="text-white font-semibold text-base mt-1 inline-flex items-center gap-2 hover:text-red-500 transition-colors">
             <Phone size={16} />{brand.ownerPhoneDisplay}
           </a>

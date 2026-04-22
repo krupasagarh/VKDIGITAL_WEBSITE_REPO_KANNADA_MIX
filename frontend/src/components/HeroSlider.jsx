@@ -47,6 +47,9 @@ const HeroSlider = () => {
           <h1 className="mt-6 text-4xl md:text-6xl font-extrabold leading-[1.05]">
             {slide.title}
           </h1>
+          <p className="mt-2 text-xl md:text-2xl font-semibold text-white/90" lang="kn">
+            {slide.titleKn}
+          </p>
           <p className="mt-4 text-2xl md:text-3xl font-bold text-yellow-300">
             {slide.highlight}
           </p>
@@ -65,7 +68,7 @@ const HeroSlider = () => {
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild className="bg-slate-900 hover:bg-black text-white rounded-full px-7 h-12 btn-shine">
-              <Link to="/home-plans">View Plans</Link>
+              <Link to="/home-plans">View Plans / ಪ್ಲಾನ್‌ಗಳು</Link>
             </Button>
             <Button asChild variant="outline" className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-red-600 rounded-full px-7 h-12">
               <Link to="/contact">

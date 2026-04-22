@@ -40,10 +40,13 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Info */}
           <div>
-            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Get In Touch</p>
+            <p className="text-red-600 font-bold tracking-[0.25em] text-sm uppercase">Get In Touch / ಸಂಪರ್ಕಿಸಿ</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900 leading-tight">
               Check Availability in Your Area
             </h2>
+            <p className="mt-2 text-xl font-semibold text-slate-600" lang="kn">
+              ನಿಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿ ಲಭ್ಯತೆ ಪರಿಶೀಲಿಸಿ
+            </p>
             <p className="mt-4 text-slate-600 max-w-md">
               Drop your details and our field team will get in touch within 24 hours with the best
               plan recommendations and feasibility check for your location.
@@ -98,16 +101,16 @@ const Contact = () => {
 
           {/* Form */}
           <form onSubmit={submit} className="bg-slate-50 rounded-2xl p-8 border border-slate-100 space-y-4">
-            <h3 className="text-xl font-bold text-slate-900">Enquire Now</h3>
+            <h3 className="text-xl font-bold text-slate-900">Enquire Now <span className="text-base font-normal text-slate-500" lang="kn">/ ಈಗ ವಿಚಾರಿಸಿ</span></h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input name="name" placeholder="Full Name" value={form.name} onChange={onChange} className="bg-white h-11" />
-              <Input name="phone" placeholder="Phone Number" value={form.phone} onChange={onChange} className="bg-white h-11" />
+              <Input name="name" placeholder="Full Name / ಪೂರ್ಣ ಹೆಸರು" value={form.name} onChange={onChange} className="bg-white h-11" />
+              <Input name="phone" placeholder="Phone Number / ಫೋನ್ ಸಂಖ್ಯೆ" value={form.phone} onChange={onChange} className="bg-white h-11" />
             </div>
-            <Input name="email" type="email" placeholder="Email Address" value={form.email} onChange={onChange} className="bg-white h-11" />
-            <Input name="address" placeholder="Your Address / Locality" value={form.address} onChange={onChange} className="bg-white h-11" />
-            <Textarea name="message" placeholder="How can we help you?" value={form.message} onChange={onChange} className="bg-white min-h-[120px]" />
+            <Input name="email" type="email" placeholder="Email Address / ಇಮೇಲ್ ವಿಳಾಸ" value={form.email} onChange={onChange} className="bg-white h-11" />
+            <Input name="address" placeholder="Your Address / ವಿಳಾಸ / ಪ್ರದೇಶ" value={form.address} onChange={onChange} className="bg-white h-11" />
+            <Textarea name="message" placeholder="How can we help you? / ನಾವು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?" value={form.message} onChange={onChange} className="bg-white min-h-[120px]" />
             <Button type="submit" disabled={busy} className="w-full bg-red-600 hover:bg-red-700 text-white rounded-full h-12 btn-shine">
-              {busy ? "Submitting..." : (<><Send size={16} className="mr-2" /> Submit Enquiry</>)}
+              {busy ? "Submitting..." : (<><Send size={16} className="mr-2" /> Submit Enquiry / ಸಲ್ಲಿಸಿ</>)}
             </Button>
           </form>
         </div>

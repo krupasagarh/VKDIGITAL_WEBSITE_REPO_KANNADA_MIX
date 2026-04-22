@@ -32,7 +32,7 @@ const Navbar = () => {
             </a>
           </div>
           <Link to="/quick-pay" className="flex items-center gap-1 hover:text-yellow-200 transition-colors font-medium">
-            <ChevronRight size={14} /> Quick Pay
+            <ChevronRight size={14} /> Quick Pay / ತ್ವರಿತ ಪಾವತಿ
           </Link>
         </div>
       </div>
