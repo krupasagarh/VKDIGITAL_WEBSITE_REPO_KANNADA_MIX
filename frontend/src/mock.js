@@ -32,7 +32,7 @@ export const heroSlides = [
     title: "Connect with the Most Reliable Broadband",
     subtitle: "Explore Our Exclusive OTT Internet Combo Plan",
     highlight: "Entertainment & Connectivity",
-    price: "50 Mbps @ \u20b9599/-",
+    price: "50 Mbps @ \u20b9499/-",
     extra: "350+ LIVE TV CHANNELS",
     image: "https://images.unsplash.com/photo-1692188071339-2825a8a997f1?w=1600&q=80",
   },
@@ -53,6 +53,24 @@ export const heroSlides = [
     price: "Starts @ \u20b9399/-",
     extra: "UNLIMITED BROWSING",
     image: "https://images.pexels.com/photos/29711663/pexels-photo-29711663.jpeg?w=1600&q=80",
+  },
+  {
+    id: 4,
+    title: "All In One Plan",
+    subtitle: "Best Plan for Home and Entertainment",
+    highlight: "Experience The Difference",
+    price: "Starts @ \u20b9599/-",
+    extra: "SPEED + 350 LIVE TV CHANNELS + 10 OTTs",
+    image: "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=1600&q=80",
+  },
+  {
+    id: 5,
+    title: "As Per Your Need",
+    subtitle: "Customisable Plan",
+    highlight: "Most Reliable Internet and Best Entertainment",
+    price: "Starts @ \u20b9199/-",
+    extra: "BEST FOR BILLING & CCTV FOR SHOPS",
+    image: "https://images.pexels.com/photos/32698507/pexels-photo-32698507.jpeg?w=1600&q=80",
   },
 ];
 
