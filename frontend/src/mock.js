@@ -4,7 +4,7 @@ export const brand = {
   name: "VK DIGITAL",
   tagline: "High Speed Internet Services",
   logo: "https://customer-assets.emergentagent.com/job_plant-based-hub-4/artifacts/50iizffb_Screenshot_20260423_010217_Canva.jpg",
-  email: "info@vkdigital.in",
+  email: "vkdigitaltiptur@gmail.com",
   phone: "+919148287555",
   phoneDisplay: "+91 91482 87555",
   ownerPhone: "+917259326656",
