@@ -110,10 +110,9 @@ export const plans = [
   },
   {
     id: "business",
-    title: "For SME & SOHO",
-    subtitle: "Business Internet",
+    title: "Internet + OTT + IPTV",
     popular: true,
-    icon: "Briefcase",
+    icon: "Tv",
     features: [
       "Up to 100Mbps",
       "22 OTT",
@@ -125,7 +124,7 @@ export const plans = [
     note: "Starts From",
     cycle: "/ Month",
     cta: "View Plans",
-    link: "/business-plans",
+    link: "/home-plans",
   },
 ];
 
