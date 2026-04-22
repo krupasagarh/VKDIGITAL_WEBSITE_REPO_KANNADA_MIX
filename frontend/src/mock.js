@@ -58,8 +58,7 @@ export const plans = [
     popular: false,
     icon: "Wifi",
     features: [
-      "Up to 500Mbps",
-      "Unlimited Data",
+      "Up to 50Mbps",
       "Free Installation",
       "Free WiFi router*",
     ],
@@ -75,9 +74,8 @@ export const plans = [
     popular: false,
     icon: "MonitorPlay",
     features: [
-      "Up to 500Mbps",
-      "Unlimited Data",
-      "20+ OTT Apps",
+      "Up to 50Mbps",
+      "22 OTT",
       "Free Installation",
       "Free WiFi router*",
     ],
@@ -93,10 +91,9 @@ export const plans = [
     popular: true,
     icon: "Tv",
     features: [
-      "Up to 500Mbps",
-      "Unlimited Data",
-      "20+ OTT Apps",
-      "350+ Live TV Channels",
+      "Up to 50Mbps",
+      "22 OTT",
+      "350 Live Channels",
       "Free Installation",
       "Free WiFi router*",
     ],
@@ -110,18 +107,16 @@ export const plans = [
     id: "business",
     title: "For SME & SOHO",
     subtitle: "Business Internet",
-    popular: false,
+    popular: true,
     icon: "Briefcase",
     features: [
-      "Up to 500Mbps",
-      "Unlimited Data",
-      "Free Static IP",
-      "Auto Renewal",
-      "B2B GST Billing",
+      "Up to 100Mbps",
+      "22 OTT",
+      "350 Live Channels",
       "Free Installation",
       "Free WiFi router*",
     ],
-    price: "\u20b9999",
+    price: "\u20b9899",
     note: "Starts From",
     cycle: "/ Month",
     cta: "View Plans",
@@ -131,18 +126,17 @@ export const plans = [
 
 export const homePlans = [
   { id: 1, speed: "50 Mbps", price: 399, validity: "1 Month", data: "Unlimited", ott: false, iptv: false },
-  { id: 2, speed: "100 Mbps", price: 499, validity: "1 Month", data: "Unlimited", ott: false, iptv: false },
-  { id: 3, speed: "150 Mbps", price: 599, validity: "1 Month", data: "Unlimited", ott: true, iptv: false },
-  { id: 4, speed: "200 Mbps", price: 699, validity: "1 Month", data: "Unlimited", ott: true, iptv: true },
-  { id: 5, speed: "300 Mbps", price: 899, validity: "1 Month", data: "Unlimited", ott: true, iptv: true },
-  { id: 6, speed: "500 Mbps", price: 1199, validity: "1 Month", data: "Unlimited", ott: true, iptv: true },
+  { id: 2, speed: "100 Mbps", price: 699, validity: "1 Month", data: "Unlimited", ott: false, iptv: false },
+  { id: 3, speed: "150 Mbps", price: 799, validity: "1 Month", data: "Unlimited", ott: true, iptv: false },
+  { id: 4, speed: "200 Mbps", price: 999, validity: "1 Month", data: "Unlimited", ott: true, iptv: true },
+  { id: 5, speed: "300 Mbps", price: 1199, validity: "1 Month", data: "Unlimited", ott: true, iptv: true },
 ];
 
 export const businessPlans = [
-  { id: 1, speed: "100 Mbps", price: 999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
-  { id: 2, speed: "200 Mbps", price: 1499, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
-  { id: 3, speed: "300 Mbps", price: 1999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
-  { id: 4, speed: "500 Mbps", price: 2999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
+  { id: 1, speed: "100 Mbps", price: 1199, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
+  { id: 2, speed: "200 Mbps", price: 1999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
+  { id: 3, speed: "300 Mbps", price: 4999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
+  { id: 4, speed: "500 Mbps", price: 6999, validity: "1 Month", data: "Unlimited", staticIp: true, gst: true },
 ];
 
 export const ottServices = [
