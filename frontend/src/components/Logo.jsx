@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { brand } from "../mock";
 
 const Logo = ({ light = false, size = "md" }) => {
-  const heightClass = size === "lg" ? "h-20 md:h-24" : "h-16 md:h-20";
+  const heightClass = size === "lg" ? "h-24 md:h-32" : "h-20 md:h-28";
   return (
     <Link to="/" className="flex items-center gap-3 group">
       <div className={`relative ${heightClass} flex items-center justify-center rounded-xl overflow-hidden bg-white ${light ? "p-2" : "p-1"}`}>
