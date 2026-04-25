@@ -29,6 +29,19 @@ export const navLinks = [
 export const heroSlides = [
   {
     id: 1,
+    title: "IPTV / Cable TV for just \u20b9149",
+    titleKn: "ಕೇವಲ \u20b9149ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
+    subtitle: "350+ Live Channels on your Smart TV",
+    subtitleKn: "ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಟಿವಿಯಲ್ಲಿ 350+ ಲೈವ್ ಚಾನೆಲ್‌ಗಳು",
+    highlight: "Best Entertainment with Cheapest Plan",
+    highlightKn: "ಅಗ್ಗದ ಪ್ಲಾನ್‌ನಲ್ಲಿ ಅತ್ಯುತ್ತಮ ಮನೋರಂಜನೆ",
+    price: "Cable TV @ \u20b9423/-",
+    extra: "350+ CHANNELS + 20 MBPS",
+    extraKn: "350+ ಚಾನೆಲ್‌ಗಳು + 20 MBPS",
+    image: "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=1600&q=80",
+  },
+  {
+    id: 2,
     title: "Connect with the Most Reliable Broadband",
     titleKn: "ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್‌ಗೆ ಸಂಪರ್ಕಿಸಿ",
     subtitle: "Explore Our Exclusive OTT Internet Combo Plan",
@@ -41,7 +54,7 @@ export const heroSlides = [
     image: "https://images.unsplash.com/photo-1692188071339-2825a8a997f1?w=1600&q=80",
   },
   {
-    id: 2,
+    id: 3,
     title: "Blazing Fast Fiber Internet",
     titleKn: "ಅತ್ಯಂತ ವೇಗದ ಫೈಬರ್ ಇಂಟರ್ನೆಟ್",
     subtitle: "Stream. Work. Play. Without Limits.",
@@ -54,7 +67,7 @@ export const heroSlides = [
     image: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=1600&q=80",
   },
   {
-    id: 3,
+    id: 4,
     title: "Upgrade Your Home Network",
     titleKn: "ನಿಮ್ಮ ಮನೆಯ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಮೇಲ್ದರ್ಜೆಗೇರಿಸಿ",
     subtitle: "Free Installation. Free WiFi Router.",
@@ -67,7 +80,7 @@ export const heroSlides = [
     image: "https://images.pexels.com/photos/29711663/pexels-photo-29711663.jpeg?w=1600&q=80",
   },
   {
-    id: 4,
+    id: 5,
     title: "All In One Plan",
     titleKn: "ಆಲ್ ಇನ್ ಒನ್ ಪ್ಲಾನ್",
     subtitle: "Best Plan for Home and Entertainment",
@@ -77,10 +90,10 @@ export const heroSlides = [
     price: "Starts @ \u20b9599/-",
     extra: "SPEED + 350 LIVE TV CHANNELS + 10 OTTs",
     extraKn: "ವೇಗ + 350 ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು + 10 OTTs",
-    image: "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=1600&q=80",
+    image: "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=1600&q=80",
   },
   {
-    id: 5,
+    id: 6,
     title: "As Per Your Need",
     titleKn: "ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ",
     subtitle: "Customisable Plan",
