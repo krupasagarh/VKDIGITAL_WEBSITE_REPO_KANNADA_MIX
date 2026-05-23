@@ -28,9 +28,9 @@ const Footer = () => {
           <h4 className="text-white font-semibold text-lg mb-5">Quick Links <span className="text-sm font-normal text-slate-400" lang="kn">/ ತ್ವರಿತ ಲಿಂಕ್‌ಗಳು</span></h4>
           <ul className="space-y-3 text-sm">
             <li><Link to="/about" className="hover:text-yellow-600 transition-colors">About Company</Link></li>
-            <li><Link to="/ott" className="hover:text-yellow-600 transition-colors">OTT Packages</Link></li>
-            <li><Link to="/iptv" className="hover:text-yellow-600 transition-colors">IPTV Packages</Link></li>
+            <li><Link to="/entertainment" className="hover:text-yellow-600 transition-colors">OTT + IPTV Packages</Link></li>
             <li><Link to="/home-plans" className="hover:text-yellow-600 transition-colors">Home Plans</Link></li>
+            <li><Link to="/plan-builder" className="hover:text-yellow-600 transition-colors">Build Your Plan</Link></li>
             <li><Link to="/business-plans" className="hover:text-yellow-600 transition-colors">Business Plans</Link></li>
           </ul>
         </div>

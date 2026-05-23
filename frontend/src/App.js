@@ -1,22 +1,24 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import HomePlans from "./pages/HomePlans";
 import BusinessPlans from "./pages/BusinessPlans";
-import Ott from "./pages/Ott";
-import Iptv from "./pages/Iptv";
+import Entertainment from "./pages/Entertainment";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import QuickPay from "./pages/QuickPay";
+import PlanBuilder from "./pages/PlanBuilder";
 import { Toaster } from "./components/ui/toaster";
 
 function ScrollToTop() {
-  const { pathname } = window.location;
-  React.useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 }
 
@@ -31,11 +33,16 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/home-plans" element={<HomePlans />} />
           <Route path="/business-plans" element={<BusinessPlans />} />
-          <Route path="/ott" element={<Ott />} />
-          <Route path="/iptv" element={<Iptv />} />
+          {/* Unified entertainment page */}
+          <Route path="/entertainment" element={<Entertainment />} />
+          {/* Backward-compatible routes */}
+          <Route path="/ott" element={<Entertainment />} />
+          <Route path="/iptv" element={<Entertainment />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/quick-pay" element={<QuickPay />} />
+          {/* Path is /plan-builder (with final "r"); /plan-builde and similar typos won't match. */}
+          <Route path="/plan-builder" element={<PlanBuilder />} />
           <Route path="/terms" element={<GenericPage title="Terms & Conditions" />} />
           <Route path="/privacy" element={<GenericPage title="Privacy Policy" />} />
           <Route path="/refund" element={<GenericPage title="Refund Policy" />} />

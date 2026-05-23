@@ -5,7 +5,11 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Button } from "../components/ui/button";
 import { useToast } from "../hooks/use-toast";
-import { brand } from "../mock";
+import {
+  brand,
+  buildContactEnquiryMessage,
+} from "../mock";
+import { postContactLead, getApiBase } from "../api";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -14,22 +18,56 @@ const Contact = () => {
 
   const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!form.name || !form.phone) {
       toast({ title: "Missing details", description: "Please fill your name and phone." });
       return;
     }
     setBusy(true);
-    setTimeout(() => {
-      // Mock save in localStorage
+    const payload = { ...form, at: new Date().toISOString() };
+    try {
       const prev = JSON.parse(localStorage.getItem("vk_enquiries") || "[]");
-      prev.push({ ...form, at: new Date().toISOString() });
+      prev.push(payload);
       localStorage.setItem("vk_enquiries", JSON.stringify(prev));
-      setBusy(false);
+
+      let emailSent = false;
+      try {
+        const res = await postContactLead(payload);
+        emailSent = Boolean(res?.email_sent);
+      } catch (apiErr) {
+        console.error(apiErr);
+      }
+
+      const hasApi = Boolean(getApiBase());
+      if (!hasApi) {
+        toast({
+          title: "Enquiry saved",
+          description: "To email the enquiry, add REACT_APP_API_URL and configure SMTP on the server.",
+        });
+      } else if (emailSent) {
+        toast({
+          title: "Enquiry sent!",
+          description: "Thanks! The enquiry has been sent to our team. You will be contacted soon.",
+        });
+      } else {
+        toast({
+          title: "Enquiry saved (email not sent)",
+          description: "Our backend couldn’t send the email. Please configure SMTP in `backend/.env`.",
+          variant: "destructive",
+        });
+      }
       setForm({ name: "", email: "", phone: "", address: "", message: "" });
-      toast({ title: "Enquiry submitted!", description: "Our team will reach out shortly." });
-    }, 700);
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or use the phone number on this page.",
+        variant: "destructive",
+      });
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (

@@ -15,6 +15,13 @@ const HomePlans = () => {
           <div className="text-center mb-12">
             <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Choose Your Plan</p>
             <h2 className="mt-3 text-4xl font-extrabold text-slate-900">Blazing Fast Home Internet</h2>
+            <p className="mt-4 text-slate-600">
+              Need a different mix of speed, OTT, or TV?{" "}
+              <Link to="/plan-builder" className="font-semibold text-yellow-700 hover:underline">
+                Build your own plan
+              </Link>{" "}
+              and send us a request.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {homePlans.map((p) => (

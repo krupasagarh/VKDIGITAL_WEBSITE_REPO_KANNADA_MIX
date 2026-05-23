@@ -77,7 +77,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
             <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Testimonials</p>
-            <h2 className="mt-3 text-4xl font-extrabold text-slate-900">What Our Customers Say</h2>
+            <h2 className="mt-3 text-4xl font-extrabold text-slate-900">What Our Customers Says On Google</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t) => (

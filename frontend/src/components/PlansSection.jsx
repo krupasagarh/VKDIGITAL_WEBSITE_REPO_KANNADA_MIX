@@ -91,6 +91,14 @@ const PlansSection = () => {
             );
           })}
         </div>
+        <div className="text-center mt-10">
+          <Link
+            to="/plan-builder"
+            className="inline-flex items-center text-sm font-semibold text-yellow-400 hover:text-yellow-300 underline underline-offset-4"
+          >
+            Not sure? Build a custom plan and send a request →
+          </Link>
+        </div>
       </div>
     </section>
   );

@@ -16,21 +16,148 @@ export const brand = {
   copyright: "\u00a9 2024-2025 VK Digital. All Rights Reserved.",
 };
 
+/** WhatsApp + email for plan/contact leads — uses `brand.ownerPhone` and `brand.email` only */
+function leadWhatsappE164() {
+  return (brand.ownerPhone || "").replace(/\D/g, "");
+}
+
+export function whatsappLeadUrl(text) {
+  const n = leadWhatsappE164();
+  if (!n) return "#";
+  return `https://wa.me/${n}?text=${encodeURIComponent(text)}`;
+}
+
+export function buildPlanRequestMessage(request) {
+  const { id, segment, speed, ott, iptv, estimatedMonthly, contact } = request;
+  const c = contact || {};
+  const lines = [
+    "*VK Digital — Custom plan request*",
+    `Ref: ${id}`,
+    "",
+    "*Plan*",
+    `Type: ${segment}`,
+    `Speed: ${speed}`,
+    `OTT bundle: ${ott ? "Yes" : "No"}`,
+    `IPTV / Live TV: ${iptv ? "Yes" : "No"}`,
+    `Est. monthly: ₹${estimatedMonthly}`,
+    "",
+    "*Contact*",
+    `Name: ${c.name || ""}`,
+    `Phone: ${c.phone || ""}`,
+    c.email ? `Email: ${c.email}` : null,
+    c.locality ? `Area / locality: ${c.locality}` : null,
+    c.notes ? `Notes: ${c.notes}` : null,
+  ].filter(Boolean);
+  return lines.join("\n");
+}
+
+export function buildContactEnquiryMessage(payload) {
+  const { name, phone, email, address, message, at } = payload;
+  const lines = [
+    "*VK Digital — Website enquiry*",
+    at ? `Submitted: ${at}` : null,
+    "",
+    `Name: ${name || ""}`,
+    `Phone: ${phone || ""}`,
+    email ? `Email: ${email}` : null,
+    address ? `Address / locality: ${address}` : null,
+    message ? `Message:\n${message}` : null,
+  ].filter(Boolean);
+  return lines.join("\n");
+}
+
 export const navLinks = [
   { label: "Home", to: "/" },
   { label: "About Us", to: "/about" },
   { label: "Home Plans", to: "/home-plans" },
   { label: "Business Plans", to: "/business-plans" },
-  { label: "OTT", to: "/ott" },
-  { label: "IPTV", to: "/iptv" },
+  { label: "Build Plan", to: "/plan-builder" },
+  { label: "Entertainment", to: "/entertainment" },
   { label: "Contact Us", to: "/contact" },
 ];
+
+/** Custom plan builder: tiers and add-ons (indicative; matches published home/business cards where possible). */
+export const planBuilderConfig = {
+  disclaimerEn:
+    "Indicative monthly estimate only. Final price, feasibility and installation depend on your area and confirmation from VK Digital.",
+  disclaimerKn:
+    "ಇದು ಅಂದಾಜು ಮಾತ್ರ. ಅಂತಿಮ ಬೆಲೆ, ಲಭ್ಯತೆ ಮತ್ತು ಅಳವಡಿಕೆ ನಿಮ್ಮ ಪ್ರದೇಶದ ಆಧಾರದ ಮೇಲೆ VK ಡಿಜಿಟಲ್ ದೃಢೀಕರಣದ ನಂತರ ನಿಗದಿಯಾಗುತ್ತದೆ.",
+  segments: [
+    {
+      id: "home",
+      label: "Home",
+      labelKn: "ಮನೆ",
+      description: "Residential — unlimited data, free installation & Wi-Fi router*",
+      descriptionKn: "ನಿವಾಸ — ಅಮಿತ ಡೇಟಾ, ಉಚಿತ ಅಳವಡಿಕೆ ಮತ್ತು ವೈಫೈ ರೂಟರ್*",
+    },
+    {
+      id: "business",
+      label: "Business / Shop",
+      labelKn: "ವ್ಯಾಪಾರ / ಅಂಗಡಿ",
+      description: "Includes static IP & GST billing as per our business plans",
+      descriptionKn: "ನಮ್ಮ ಬಿಸಿನೆಸ್ ಪ್ಲಾನ್‌ಗಳ ಪ್ರಕಾರ ಸ್ಟ್ಯಾಟಿಕ್ ಐಪಿ ಮತ್ತು ಜಿಎಸ್ಟಿ ಬಿಲ್ಲಿಂಗ್",
+    },
+  ],
+  home: {
+    tiers: [
+      { id: "50", speed: "50 Mbps", base: 399 },
+      { id: "100", speed: "100 Mbps", base: 699 },
+      { id: "150", speed: "150 Mbps", base: 599 },
+      { id: "200", speed: "200 Mbps", base: 699 },
+      { id: "300", speed: "300 Mbps", base: 899 },
+    ],
+    ottAddon: 200,
+    iptvAddon: 100,
+    ottLabel: "20+ OTT apps",
+    ottLabelKn: "20+ OTT ಅಪ್ಲಿಕೇಶನ್‌ಗಳು",
+    iptvLabel: "350+ Live TV (IPTV)",
+    iptvLabelKn: "350+ ಲೈವ್ ಟಿವಿ (IPTV)",
+  },
+  business: {
+    tiers: [
+      { id: "100", speed: "100 Mbps", base: 1199 },
+      { id: "200", speed: "200 Mbps", base: 1999 },
+      { id: "300", speed: "300 Mbps", base: 4999 },
+      { id: "500", speed: "500 Mbps", base: 6999 },
+    ],
+    ottAddon: 200,
+    iptvAddon: 150,
+    ottLabel: "20+ OTT apps (add-on)",
+    ottLabelKn: "20+ OTT (ಅಡಾನ್)",
+    iptvLabel: "350+ Live TV / IPTV (add-on)",
+    iptvLabelKn: "350+ ಲೈವ್ ಟಿವಿ / IPTV (ಅಡಾನ್)",
+  },
+};
+
+/**
+ * @param {{ segment: "home" | "business"; tierId: string; ott: boolean; iptv: boolean }} selection
+ */
+export function computePlanBuilderQuote(selection) {
+  const segment = selection.segment === "business" ? "business" : "home";
+  const cfg = segment === "business" ? planBuilderConfig.business : planBuilderConfig.home;
+  const tier = cfg.tiers.find((t) => t.id === selection.tierId) || cfg.tiers[0];
+  let total = tier.base;
+  if (selection.ott) total += cfg.ottAddon;
+  if (selection.iptv) total += cfg.iptvAddon;
+  return {
+    segment,
+    tier,
+    ott: selection.ott,
+    iptv: selection.iptv,
+    estimatedMonthly: total,
+    breakdown: [
+      { key: "base", label: `${tier.speed} base`, amount: tier.base },
+      ...(selection.ott ? [{ key: "ott", label: cfg.ottLabel, amount: cfg.ottAddon }] : []),
+      ...(selection.iptv ? [{ key: "iptv", label: cfg.iptvLabel, amount: cfg.iptvAddon }] : []),
+    ],
+  };
+}
 
 export const heroSlides = [
   {
     id: 1,
-    title: "IPTV / Cable TV for just \u20b9149",
-    titleKn: "ಕೇವಲ \u20b9149ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
+    title: "IPTV / Cable TV for just \u20b9159",
+    titleKn: "ಕೇವಲ \u20b9159ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
     subtitle: "350+ Live Channels on your Smart TV",
     subtitleKn: "ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಟಿವಿಯಲ್ಲಿ 350+ ಲೈವ್ ಚಾನೆಲ್‌ಗಳು",
     highlight: "Best Entertainment with Cheapest Plan",
@@ -303,18 +430,33 @@ export const iptvChannels = [
 
 export const testimonials = [
   {
-    name: "Ramesh Kumar",
-    role: "Home User, Bangalore",
-    quote: "VK Digital's fiber has been rock-solid for my work-from-home setup. Consistent speeds and quick support.",
+    name: "chromatic_photography_97",
+    role: "Photographer/Business Owner",
+    quote: "Very good speed connection with wonderful services.A good team with a very fast response I really recommend this service.Thank you.",
   },
   {
-    name: "Priya Sharma",
-    role: "Small Business Owner",
-    quote: "We upgraded to the business plan with static IP and GST billing. Best decision we made this year.",
+    name: "Abhishek Daryani",
+    role: "Software Engineer/Gamer",
+    quote: "Very good and personalized service. VK digital gives immediate response on queries and issues. Waiting period is way too less and spot services are too very quick. Highly satisfied with the service would recommend 200%. And frequent updates on service addition is commendable. Speed of internet.... no question at all.",
   },
   {
-    name: "Arjun Reddy",
-    role: "Gamer & Streamer",
-    quote: "Low latency, zero buffering on 4K streams. The OTT combo saves me so much money each month.",
+    name: "KRISHNA Iyengar",
+    role: "Banker/Business Owner",
+    quote: "I have been using the ISP since 2021 when I moved to Tiptur. I get good speeds , hardly 1 downtime once in 6 months but Shri Krupa Sagar attends the complaint even if it is night. I have never seen their office , all my requests are attended over whatsapp.",
   },
+  {
+    name: "HARSHITHA",
+    role: "IT Professional/Home User",
+    quote: "Hassle free installation, good service n most important good speed.. prior notice during downtime / maintenance which I appreciate.. very professional. . Any issues u get quick response.. much recommended.",
+  },
+  {
+    name: "BHARATH EV",
+    role: "IT Professional/Home User",
+    quote: "Very good service and response is quick as well if there is any slowness.. Thanks for providing such a good service here in Tiptur. Happy as a customer..!! Now providing OTT access along with Wifi with same plan is well worthy.",
+  },
+  {
+    name: "SMITHA",
+    role: "IT Professional/Home User",
+    quote: "VK Digital provides uninterrupted quality network 24/7. Staffs respond quickly in case of any issues or concerns and will address them as soon as possible.",
+  },    
 ];

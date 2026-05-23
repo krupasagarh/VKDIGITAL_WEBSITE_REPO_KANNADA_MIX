@@ -131,3 +131,49 @@ export const FeatureStrip = () => {
     </section>
   );
 };
+
+export const CoverageAreasSection = () => {
+  const areas = [
+    "BH Road Area",
+    "Vidhyanagara",
+    "Vinayaka Nagar / KR Extension",
+    "Gandhinagar",
+    "Nearby rural areas within Tiptur Taluk",
+    "Surrounding Tiptur extensions & nearby localities",
+  ];
+
+  return (
+    <section className="bg-slate-50 py-20">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-12">
+          <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase">Our Coverage Areas</p>
+          <h2 className="mt-3 text-4xl font-extrabold text-slate-900">Internet in Tiptur, Tumkur</h2>
+          <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+            Looking for the most reliable local internet service provider in Tiptur, Tumkur?
+            VK Digital provides uninterrupted, high-speed fiber broadband straight to your home or office on{" "}
+            <span className="font-semibold text-slate-800">BH Road</span> and surrounding Tiptur areas, including{" "}
+            <span className="font-semibold text-slate-800">Vidhyanagara</span>,{" "}
+            <span className="font-semibold text-slate-800">Vinayaka Nagar / KR Extension</span>, and{" "}
+            <span className="font-semibold text-slate-800">Gandhinagar</span>.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          {areas.map((a) => (
+            <div
+              key={a}
+              className="rounded-2xl bg-white border border-slate-200 p-6 text-slate-800 shadow-sm flex items-start gap-3"
+            >
+              <div className="w-3.5 h-3.5 rounded-full bg-yellow-400 mt-2" />
+              <div className="text-base font-semibold">{a}</div>
+            </div>
+          ))}
+        </div>
+
+        <p className="mt-10 text-center text-slate-600">
+          Support is local: our on-ground team in Tiptur helps you with installation and issues faster than big corporate providers.
+        </p>
+      </div>
+    </section>
+  );
+};
