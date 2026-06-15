@@ -122,16 +122,33 @@ def _format_plan_lead_email(p: "PlanLeadPayload") -> str:
         f"Custom plan request — {p.id}",
         f"Time: {p.createdAt}",
         "",
-        f"Type: {p.segment}",
-        f"Speed: {p.speed}",
-        f"OTT bundle: {'Yes' if p.ott else 'No'}",
-        f"IPTV / Live TV: {'Yes' if p.iptv else 'No'}",
-        f"Estimated monthly: ₹{p.estimatedMonthly}",
-        "",
-        "Price breakdown:",
     ]
-    for row in p.breakdown:
-        lines.append(f"  - {row.get('label', '')}: ₹{row.get('amount', '')}")
+
+    if p.description:
+        lines += [
+            f"Plan: {p.description}",
+            f"Internet: {p.speed or ''}",
+            f"IPTV: {p.iptv if isinstance(p.iptv, str) else p.iptv}",
+            f"OTT: {p.ott if isinstance(p.ott, str) else p.ott}",
+            f"Duration: {p.months or 1} month(s)",
+            f"Monthly (incl. GST): ₹{p.monthlyInclGst or ''}",
+            f"Installation: {'Free' if p.installation == 0 else f'₹{p.installation}'}",
+            f"Total payable: ₹{p.totalPayable or ''}",
+        ]
+    else:
+        lines += [
+            f"Type: {p.segment or ''}",
+            f"Speed: {p.speed or ''}",
+            f"OTT bundle: {'Yes' if p.ott else 'No'}",
+            f"IPTV / Live TV: {'Yes' if p.iptv else 'No'}",
+            f"Estimated monthly: ₹{p.estimatedMonthly or ''}",
+        ]
+
+    if p.breakdown:
+        lines += ["", "Price breakdown:"]
+        for row in p.breakdown:
+            lines.append(f"  - {row.get('label', '')}: ₹{row.get('amount', '')}")
+
     lines += [
         "",
         "Contact:",
@@ -169,13 +186,21 @@ class PlanLeadPayload(BaseModel):
 
     id: str
     createdAt: str
-    segment: str
-    speed: str
-    ott: bool
-    iptv: bool
-    estimatedMonthly: int
-    breakdown: List[Dict[str, Any]]
     contact: Dict[str, Any]
+    breakdown: List[Dict[str, Any]] = Field(default_factory=list)
+    # Legacy plan builder fields
+    segment: Optional[str] = None
+    speed: Optional[str] = None
+    ott: Optional[Any] = None
+    iptv: Optional[Any] = None
+    estimatedMonthly: Optional[int] = None
+    # Smart plan builder fields
+    months: Optional[int] = None
+    baseMonthly: Optional[float] = None
+    monthlyInclGst: Optional[float] = None
+    installation: Optional[float] = None
+    totalPayable: Optional[float] = None
+    description: Optional[str] = None
 
 
 class ContactLeadPayload(BaseModel):

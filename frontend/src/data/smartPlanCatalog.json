@@ -1,0 +1,180 @@
+{
+  "speeds": [
+    {
+      "name": "20 MBPS",
+      "price": 199.0
+    },
+    {
+      "name": "30 MBPS",
+      "price": 249.0
+    },
+    {
+      "name": "40 MBPS",
+      "price": 399.0
+    },
+    {
+      "name": "50 MBPS",
+      "price": 399.0
+    },
+    {
+      "name": "75 MBPS",
+      "price": 599.0
+    },
+    {
+      "name": "100 MBPS",
+      "price": 549.0
+    },
+    {
+      "name": "150 MBPS",
+      "price": 799.0
+    },
+    {
+      "name": "200 MBPS",
+      "price": 999.0
+    },
+    {
+      "name": "300 MBPS",
+      "price": 1199.0
+    }
+  ],
+  "iptvPlans": [
+    {
+      "name": "Basic Kannada",
+      "price": 99.0
+    },
+    {
+      "name": "Basic HD Kannada",
+      "price": 120.0
+    },
+    {
+      "name": "2 Lang SD",
+      "price": 149.0
+    },
+    {
+      "name": "2 Lang HD",
+      "price": 169.0
+    },
+    {
+      "name": "3 Lang SD",
+      "price": 169.0
+    },
+    {
+      "name": "3 Lang HD",
+      "price": 199.0
+    },
+    {
+      "name": "Cable Basic Kannada",
+      "price": 170.0
+    },
+    {
+      "name": "Cable Basic HD Kannada",
+      "price": 187.0
+    },
+    {
+      "name": "Cable 2 Lang SD",
+      "price": 212.0
+    },
+    {
+      "name": "Cable 2 Lang HD",
+      "price": 252.0
+    },
+    {
+      "name": "Cable South SD",
+      "price": 272.0
+    },
+    {
+      "name": "Cable Kan,Telugu,Tamil, Hindi HD",
+      "price": 297.0
+    },
+    {
+      "name": "All Channels",
+      "price": 250.0
+    },
+    {
+      "name": "None",
+      "price": 0.0
+    }
+  ],
+  "ottPlans": [
+    {
+      "name": "10 OTT Apps",
+      "price": 100.0
+    },
+    {
+      "name": "26 OTT Apps",
+      "price": 169.0
+    },
+    {
+      "name": "SmartPlay TV (Live TV + 16 OTTs)",
+      "price": 250.0
+    },
+    {
+      "name": "None",
+      "price": 0.0
+    }
+  ],
+  "ottApps": {
+    "10": [
+      "JioHotstar",
+      "SonyLiv",
+      "Zee5",
+      "Playbox TV",
+      "OMTV",
+      "Discovery+",
+      "Fancode",
+      "Hubhopper",
+      "Shemaroo Me",
+      "iTap"
+    ],
+    "16": [
+      "ZEE5",
+      "SonyPremium",
+      "Hotstar_Super",
+      "Sunnxt",
+      "ShemarooMe",
+      "AAONXT",
+      "Discovery",
+      "Hungama",
+      "Fancode",
+      "PlayboxTV",
+      "OMTV",
+      "DistroTV",
+      "HubHopper",
+      "KancchaLannka",
+      "RajTV",
+      "JioSaavn"
+    ],
+    "26": [
+      "JioHotstar",
+      "SonyLIV",
+      "Zee5",
+      "SunNXT",
+      "Aha Telugu",
+      "Shemaroo",
+      "PlayboxTV",
+      "Discovery+",
+      "Hungama",
+      "AaoNxt",
+      "OM TV",
+      "Fancode",
+      "Distro TV",
+      "iTap",
+      "Stage",
+      "Kanccha Lannka",
+      "Raj DigitalTV",
+      "Shorts TV",
+      "Chana Jor",
+      "TravelXP",
+      "Nammaflix",
+      "RunnTV",
+      "Shucae Flim",
+      "Dangal Play",
+      "Waves",
+      "Jio Saavn",
+      "PlayShots"
+    ]
+  },
+  "gstRate": 0.18,
+  "installFee": 1000,
+  "freeInstallThreshold": 2500
+}

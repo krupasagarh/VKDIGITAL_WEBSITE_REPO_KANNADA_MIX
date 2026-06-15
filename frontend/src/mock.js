@@ -28,27 +28,46 @@ export function whatsappLeadUrl(text) {
 }
 
 export function buildPlanRequestMessage(request) {
-  const { id, segment, speed, ott, iptv, estimatedMonthly, contact } = request;
-  const c = contact || {};
+  const c = request.contact || {};
   const lines = [
     "*VK Digital — Custom plan request*",
-    `Ref: ${id}`,
+    `Ref: ${request.id}`,
     "",
     "*Plan*",
-    `Type: ${segment}`,
-    `Speed: ${speed}`,
-    `OTT bundle: ${ott ? "Yes" : "No"}`,
-    `IPTV / Live TV: ${iptv ? "Yes" : "No"}`,
-    `Est. monthly: ₹${estimatedMonthly}`,
+  ];
+
+  if (request.description) {
+    lines.push(
+      `Plan: ${request.description}`,
+      `Internet: ${request.speed || ""}`,
+      `IPTV: ${request.iptv || ""}`,
+      `OTT: ${request.ott || ""}`,
+      `Duration: ${request.months || 1} month(s)`,
+      `Monthly (incl. GST): ₹${request.monthlyInclGst ?? ""}`,
+      `Installation: ${request.installation === 0 ? "Free" : `₹${request.installation}`}`,
+      `Total payable: ₹${request.totalPayable ?? ""}`
+    );
+  } else {
+    lines.push(
+      `Type: ${request.segment || "home"}`,
+      `Speed: ${request.speed || ""}`,
+      `OTT bundle: ${request.ott ? "Yes" : "No"}`,
+      `IPTV / Live TV: ${request.iptv ? "Yes" : "No"}`,
+      `Est. monthly: ₹${request.estimatedMonthly ?? ""}`
+    );
+  }
+
+  lines.push(
     "",
     "*Contact*",
     `Name: ${c.name || ""}`,
     `Phone: ${c.phone || ""}`,
     c.email ? `Email: ${c.email}` : null,
     c.locality ? `Area / locality: ${c.locality}` : null,
-    c.notes ? `Notes: ${c.notes}` : null,
-  ].filter(Boolean);
-  return lines.join("\n");
+    c.notes ? `Notes: ${c.notes}` : null
+  );
+
+  return lines.filter(Boolean).join("\n");
 }
 
 export function buildContactEnquiryMessage(payload) {
