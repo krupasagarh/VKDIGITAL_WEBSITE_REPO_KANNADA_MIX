@@ -104,37 +104,6 @@ const About = () => {
         </div>
       </section>
 
-      <section className="bg-white py-16 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl">
-            <p className="text-yellow-600 font-bold tracking-[0.25em] text-sm uppercase flex items-center gap-2">
-              <Wrench size={16} /> Field support
-            </p>
-            <h2 className="mt-3 text-3xl font-extrabold text-slate-900">Technicians</h2>
-            <p className="mt-2 text-slate-600">
-              For installation, repairs, or on-site support in your area, contact our technicians directly.
-            </p>
-            <ul className="mt-6 space-y-4">
-              {technicians.map((tech) => (
-                <li
-                  key={tech.name}
-                  className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50 px-5 py-4"
-                >
-                  <span className="font-semibold text-slate-900">{tech.name}</span>
-                  <a
-                    href={`tel:${tech.phone}`}
-                    className="inline-flex items-center gap-2 text-yellow-700 font-bold hover:text-yellow-600 transition-colors"
-                  >
-                    <Phone size={16} />
-                    {tech.phoneDisplay}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
