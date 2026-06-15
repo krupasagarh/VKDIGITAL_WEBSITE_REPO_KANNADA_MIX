@@ -16,6 +16,11 @@ export const brand = {
   copyright: "\u00a9 2024-2025 VK Digital. All Rights Reserved.",
 };
 
+export const technicians = [
+  { name: "Dilip", phone: "+919008414666", phoneDisplay: "9008414666" },
+  { name: "Shivu", phone: "+919008424666", phoneDisplay: "9008424666" },
+];
+
 /** WhatsApp + email for plan/contact leads — uses `brand.ownerPhone` and `brand.email` only */
 function leadWhatsappE164() {
   return (brand.ownerPhone || "").replace(/\D/g, "");
