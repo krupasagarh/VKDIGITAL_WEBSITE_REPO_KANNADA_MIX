@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_SHEET_ID = "13rxiHFP9pTHyznLafZ3Ep4FK7Jz-D1lHf10wL10tYUI"
 DEFAULT_SHEET_TAB = "Data"
-CACHE_TTL_SECONDS = 300
+CACHE_TTL_SECONDS = 60
 
 _cache: Dict[str, Any] = {"catalog": None, "fetched_at": 0.0, "source": "fallback"}
 

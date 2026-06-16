@@ -24,6 +24,7 @@ import {
 import { useToast } from "../hooks/use-toast";
 import { planBuilderConfig } from "../mock";
 import { postPlanLead, getApiBase, fetchPlanCatalog } from "../api";
+import { loadRemotePlanCatalog } from "../lib/loadPlanCatalog";
 import {
   getPlanCatalog,
   setPlanCatalog,
@@ -115,7 +116,11 @@ const PlanBuilder = () => {
   const [budget, setBudget] = useState(10000);
   const [busy, setBusy] = useState(false);
   const [catalogSource, setCatalogSource] = useState("bundled");
+  const [catalogLoading, setCatalogLoading] = useState(true);
   const bookingFormRef = useRef(null);
+  const selectionRef = useRef({ speedName, iptvName, ottName });
+
+  selectionRef.current = { speedName, iptvName, ottName };
 
   const [contact, setContact] = useState({
     name: "",
@@ -134,27 +139,26 @@ const PlanBuilder = () => {
   const ottApps = useMemo(() => getOttAppsForPlan(ottName), [ottName, catalogSource]);
   const catalog = getPlanCatalog();
 
-  React.useEffect(() => {
-    let cancelled = false;
+  const loadCatalog = React.useCallback(async () => {
+    setCatalogLoading(true);
+    try {
+      const remote = await loadRemotePlanCatalog();
+      if (!remote?.catalog) return;
 
-    fetchPlanCatalog()
-      .then((res) => {
-        if (cancelled || !res?.catalog) return;
-        setPlanCatalog(res.catalog);
-        setCatalogSource(res.source || "google_sheets");
-        const synced = syncPlanSelections({ speedName, iptvName, ottName });
-        setSpeedName(synced.speedName);
-        setIptvName(synced.iptvName);
-        setOttName(synced.ottName);
-      })
-      .catch((err) => {
-        console.warn("Using bundled plan catalog; Google Sheet API unavailable.", err);
-      });
-
-    return () => {
-      cancelled = true;
-    };
+      setPlanCatalog(remote.catalog);
+      setCatalogSource(remote.source);
+      const synced = syncPlanSelections(selectionRef.current);
+      setSpeedName(synced.speedName);
+      setIptvName(synced.iptvName);
+      setOttName(synced.ottName);
+    } finally {
+      setCatalogLoading(false);
+    }
   }, []);
+
+  React.useEffect(() => {
+    loadCatalog();
+  }, [loadCatalog]);
 
   const onContactChange = (e) =>
     setContact((c) => ({ ...c, [e.target.name]: e.target.value }));
@@ -272,11 +276,29 @@ const PlanBuilder = () => {
               ನಿಮ್ಮ ಪ್ಲಾನ್ ರಚಿಸಿ ಅಥವಾ ಬಜೆಟ್‌ಗೆ ಸರಿಹೊಂದುವ ಪ್ಲಾನ್ ಹುಡುಕಿ
             </p>
             <p className="mt-3 text-sm text-slate-500">{planBuilderConfig.disclaimerEn}</p>
-            {catalogSource === "google_sheets" && (
+            {catalogLoading ? (
+              <p className="mt-2 text-xs font-medium text-slate-500">Loading latest prices…</p>
+            ) : catalogSource === "google_sheets" || catalogSource === "api" ? (
               <p className="mt-2 text-xs font-medium text-green-700">
                 Live prices loaded from Google Sheet
               </p>
+            ) : (
+              <p className="mt-2 text-xs font-medium text-amber-700">
+                Showing saved prices — click Refresh prices if sheet was updated
+              </p>
             )}
+            <div className="mt-3">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={catalogLoading}
+                onClick={loadCatalog}
+                className="rounded-full"
+              >
+                {catalogLoading ? "Refreshing…" : "Refresh prices"}
+              </Button>
+            </div>
             <p className="mt-1 text-sm text-slate-500" lang="kn">
               {planBuilderConfig.disclaimerKn}
             </p>
