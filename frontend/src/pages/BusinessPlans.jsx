@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { Check, Briefcase } from "lucide-react";
-import { businessPlans } from "../mock";
 import { Button } from "../components/ui/button";
 import { CtaSection } from "../components/Sections";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const BusinessPlans = () => {
+  const { businessPlans } = usePlanCatalog();
+
   return (
     <>
       <PageHeader title="Business Plans" />

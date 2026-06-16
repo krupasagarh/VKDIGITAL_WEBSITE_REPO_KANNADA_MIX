@@ -23,11 +23,10 @@ import {
 } from "../components/ui/table";
 import { useToast } from "../hooks/use-toast";
 import { planBuilderConfig } from "../mock";
-import { postPlanLead, getApiBase, fetchPlanCatalog } from "../api";
-import { loadRemotePlanCatalog } from "../lib/loadPlanCatalog";
+import { postPlanLead, getApiBase } from "../api";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 import {
   getPlanCatalog,
-  setPlanCatalog,
   getDefaultPlanSelections,
   syncPlanSelections,
   computePlanQuote,
@@ -108,6 +107,7 @@ const initialSelections = getDefaultPlanSelections();
 
 const PlanBuilder = () => {
   const { toast } = useToast();
+  const { catalogSource, catalogLoading, refreshCatalog } = usePlanCatalog();
   const [tab, setTab] = useState("build");
   const [speedName, setSpeedName] = useState(initialSelections.speedName);
   const [iptvName, setIptvName] = useState(initialSelections.iptvName);
@@ -115,8 +115,6 @@ const PlanBuilder = () => {
   const [months, setMonths] = useState(6);
   const [budget, setBudget] = useState(10000);
   const [busy, setBusy] = useState(false);
-  const [catalogSource, setCatalogSource] = useState("bundled");
-  const [catalogLoading, setCatalogLoading] = useState(true);
   const bookingFormRef = useRef(null);
   const selectionRef = useRef({ speedName, iptvName, ottName });
 
@@ -139,26 +137,12 @@ const PlanBuilder = () => {
   const ottApps = useMemo(() => getOttAppsForPlan(ottName), [ottName, catalogSource]);
   const catalog = getPlanCatalog();
 
-  const loadCatalog = React.useCallback(async () => {
-    setCatalogLoading(true);
-    try {
-      const remote = await loadRemotePlanCatalog();
-      if (!remote?.catalog) return;
-
-      setPlanCatalog(remote.catalog);
-      setCatalogSource(remote.source);
-      const synced = syncPlanSelections(selectionRef.current);
-      setSpeedName(synced.speedName);
-      setIptvName(synced.iptvName);
-      setOttName(synced.ottName);
-    } finally {
-      setCatalogLoading(false);
-    }
-  }, []);
-
   React.useEffect(() => {
-    loadCatalog();
-  }, [loadCatalog]);
+    const synced = syncPlanSelections(selectionRef.current);
+    setSpeedName(synced.speedName);
+    setIptvName(synced.iptvName);
+    setOttName(synced.ottName);
+  }, [catalogSource]);
 
   const onContactChange = (e) =>
     setContact((c) => ({ ...c, [e.target.name]: e.target.value }));
@@ -293,7 +277,13 @@ const PlanBuilder = () => {
                 variant="outline"
                 size="sm"
                 disabled={catalogLoading}
-                onClick={loadCatalog}
+                onClick={async () => {
+                  await refreshCatalog();
+                  const synced = syncPlanSelections(selectionRef.current);
+                  setSpeedName(synced.speedName);
+                  setIptvName(synced.iptvName);
+                  setOttName(synced.ottName);
+                }}
                 className="rounded-full"
               >
                 {catalogLoading ? "Refreshing…" : "Refresh prices"}

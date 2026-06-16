@@ -10,9 +10,11 @@ import {
   buildContactEnquiryMessage,
 } from "../mock";
 import { postContactLead, getApiBase } from "../api";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const Contact = () => {
   const { toast } = useToast();
+  const { contacts } = usePlanCatalog();
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", message: "" });
   const [busy, setBusy] = useState(false);
 
@@ -106,11 +108,11 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900">Call Us</h4>
-                  <a href={`tel:${brand.helpdeskPhone}`} className="block text-sm text-slate-600 hover:text-yellow-600">
-                    Helpdesk: {brand.helpdeskPhoneDisplay}
+                  <a href={`tel:${contacts.helpdesk.tel}`} className="block text-sm text-slate-600 hover:text-yellow-600">
+                    Helpdesk: {contacts.helpdesk.display}
                   </a>
-                  <a href={`tel:${brand.ownerPhone}`} className="block text-sm text-slate-600 hover:text-yellow-600 mt-0.5">
-                    Owner: {brand.ownerPhoneDisplay}
+                  <a href={`tel:${contacts.owner.tel}`} className="block text-sm text-slate-600 hover:text-yellow-600 mt-0.5">
+                    Owner: {contacts.owner.display}
                   </a>
                 </div>
               </div>

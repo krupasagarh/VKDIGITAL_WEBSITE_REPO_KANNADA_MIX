@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Check, Wifi, MonitorPlay, Tv, Briefcase } from "lucide-react";
-import { plans } from "../mock";
 import { Button } from "./ui/button";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const ICONS = { Wifi, MonitorPlay, Tv, Briefcase };
 
 const PlansSection = () => {
+  const { homepagePlans: plans } = usePlanCatalog();
+
   return (
     <section className="relative bg-[#0b0b0d] text-white py-20">
       <div className="absolute inset-0 dot-pattern opacity-50" />

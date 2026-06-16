@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 from email.message import EmailMessage
 
 from plan_catalog import load_plan_catalog
+from website_content import load_website_content
 
 
 ROOT_DIR = Path(__file__).parent
@@ -220,10 +221,12 @@ class ContactLeadPayload(BaseModel):
 async def get_plan_catalog(refresh: bool = False):
     try:
         catalog, source = await asyncio.to_thread(load_plan_catalog, force_refresh=refresh)
+        website = await asyncio.to_thread(load_website_content, force_refresh=refresh)
         return {
             "ok": True,
             "source": source,
             "catalog": catalog,
+            "website": website,
         }
     except Exception as exc:
         logger.exception("Plan catalog unavailable")

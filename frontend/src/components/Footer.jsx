@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Facebook, Instagram, Twitter, Youtube, MapPin, Phone, Mail, ArrowUp } from "lucide-react";
 import Logo from "./Logo";
 import { brand } from "../mock";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const Footer = () => {
+  const { contacts } = usePlanCatalog();
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
@@ -49,12 +51,12 @@ const Footer = () => {
             <Mail size={14} className="inline mr-2" />{brand.email}
           </a>
           <p className="text-sm text-slate-400 mt-6">24/7 Helpdesk <span lang="kn">/ ಸಹಾಯವಾಣಿ</span></p>
-          <a href={`tel:${brand.helpdeskPhone}`} className="text-yellow-600 font-bold text-xl mt-1 inline-flex items-center gap-2">
-            <Phone size={18} />{brand.helpdeskPhoneDisplay}
+          <a href={`tel:${contacts.helpdesk.tel}`} className="text-yellow-600 font-bold text-xl mt-1 inline-flex items-center gap-2">
+            <Phone size={18} />{contacts.helpdesk.display}
           </a>
           <p className="text-sm text-slate-400 mt-4">Owner <span lang="kn">/ ಮಾಲೀಕರು</span></p>
-          <a href={`tel:${brand.ownerPhone}`} className="text-white font-semibold text-base mt-1 inline-flex items-center gap-2 hover:text-yellow-600 transition-colors">
-            <Phone size={16} />{brand.ownerPhoneDisplay}
+          <a href={`tel:${contacts.owner.tel}`} className="text-white font-semibold text-base mt-1 inline-flex items-center gap-2 hover:text-yellow-600 transition-colors">
+            <Phone size={16} />{contacts.owner.display}
           </a>
         </div>
       </div>

@@ -1,0 +1,161 @@
+{
+  "homePlans": [
+    { "id": 1, "speed": "50 Mbps", "price": 399, "validity": "1 Month", "data": "Unlimited", "ott": false, "iptv": false },
+    { "id": 2, "speed": "100 Mbps", "price": 699, "validity": "1 Month", "data": "Unlimited", "ott": false, "iptv": false },
+    { "id": 3, "speed": "150 Mbps", "price": 799, "validity": "1 Month", "data": "Unlimited", "ott": true, "iptv": false },
+    { "id": 4, "speed": "200 Mbps", "price": 999, "validity": "1 Month", "data": "Unlimited", "ott": true, "iptv": true },
+    { "id": 5, "speed": "300 Mbps", "price": 1199, "validity": "1 Month", "data": "Unlimited", "ott": true, "iptv": true }
+  ],
+  "businessPlans": [
+    { "id": 1, "speed": "100 Mbps", "price": 1199, "validity": "1 Month", "data": "Unlimited", "staticIp": true, "gst": true },
+    { "id": 2, "speed": "200 Mbps", "price": 1999, "validity": "1 Month", "data": "Unlimited", "staticIp": true, "gst": true },
+    { "id": 3, "speed": "300 Mbps", "price": 4999, "validity": "1 Month", "data": "Unlimited", "staticIp": true, "gst": true },
+    { "id": 4, "speed": "500 Mbps", "price": 6999, "validity": "1 Month", "data": "Unlimited", "staticIp": true, "gst": true }
+  ],
+  "homepageCards": [
+    {
+      "id": "internet",
+      "title": "Internet",
+      "icon": "Wifi",
+      "features": ["Up to 50Mbps", "Free Installation", "Free WiFi router*"],
+      "price": "₹399",
+      "note": "Starts From",
+      "popular": false,
+      "link": "/home-plans",
+      "cta": "View Plans",
+      "cycle": "/ Month"
+    },
+    {
+      "id": "internet-ott",
+      "title": "Internet + OTT",
+      "icon": "MonitorPlay",
+      "features": ["Up to 50Mbps", "22 OTT", "Free Installation", "Free WiFi router*"],
+      "price": "₹599",
+      "note": "Starts From",
+      "popular": false,
+      "link": "/home-plans",
+      "cta": "View Plans",
+      "cycle": "/ Month"
+    },
+    {
+      "id": "internet-ott-iptv",
+      "title": "Internet + OTT + IPTV",
+      "icon": "Tv",
+      "features": ["Up to 50Mbps", "22 OTT", "350 Live Channels", "Free Installation", "Free WiFi router*"],
+      "price": "₹699",
+      "note": "Starts From",
+      "popular": true,
+      "link": "/home-plans",
+      "cta": "View Plans",
+      "cycle": "/ Month"
+    },
+    {
+      "id": "business",
+      "title": "Internet + OTT + IPTV",
+      "icon": "Tv",
+      "features": ["Up to 100Mbps", "22 OTT", "350 Live Channels", "Free Installation", "Free WiFi router*"],
+      "price": "₹899",
+      "note": "Starts From",
+      "popular": true,
+      "link": "/home-plans",
+      "cta": "View Plans",
+      "cycle": "/ Month"
+    }
+  ],
+  "heroSlides": [
+    {
+      "id": 1,
+      "title": "IPTV / Cable TV for just ₹159",
+      "titleKn": "ಕೇವಲ ₹159ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
+      "subtitle": "350+ Live Channels on your Smart TV",
+      "subtitleKn": "ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಟಿವಿಯಲ್ಲಿ 350+ ಲೈವ್ ಚಾನೆಲ್‌ಗಳು",
+      "highlight": "Best Entertainment with Cheapest Plan",
+      "highlightKn": "ಅಗ್ಗದ ಪ್ಲಾನ್‌ನಲ್ಲಿ ಅತ್ಯುತ್ತಮ ಮನೋರಂಜನೆ",
+      "price": "Cable TV @ ₹423/-",
+      "extra": "350+ CHANNELS + 20 MBPS",
+      "extraKn": "350+ ಚಾನೆಲ್‌ಗಳು + 20 MBPS",
+      "image": "https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=1600&q=80"
+    },
+    {
+      "id": 2,
+      "title": "Connect with the Most Reliable Broadband",
+      "titleKn": "ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್‌ಗೆ ಸಂಪರ್ಕಿಸಿ",
+      "subtitle": "Explore Our Exclusive OTT Internet Combo Plan",
+      "subtitleKn": "ನಮ್ಮ ವಿಶೇಷ OTT ಇಂಟರ್ನೆಟ್ ಕಾಂಬೊ ಪ್ಲಾನ್ ಅನ್ವೇಷಿಸಿ",
+      "highlight": "Entertainment & Connectivity",
+      "highlightKn": "ಮನೋರಂಜನೆ ಮತ್ತು ಸಂಪರ್ಕ",
+      "price": "50 Mbps @ ₹499/-",
+      "extra": "350+ LIVE TV CHANNELS",
+      "extraKn": "350+ ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು",
+      "image": "https://images.unsplash.com/photo-1692188071339-2825a8a997f1?w=1600&q=80"
+    },
+    {
+      "id": 3,
+      "title": "Blazing Fast Fiber Internet",
+      "titleKn": "ಅತ್ಯಂತ ವೇಗದ ಫೈಬರ್ ಇಂಟರ್ನೆಟ್",
+      "subtitle": "Stream. Work. Play. Without Limits.",
+      "subtitleKn": "ಸ್ಟ್ರೀಮ್. ಕೆಲಸ. ಆಟ. ಮಿತಿಯಿಲ್ಲದೆ.",
+      "highlight": "Unlimited Data, Zero Buffering",
+      "highlightKn": "ಅಮಿತ ಡೇಟಾ, ಶೂನ್ಯ ಬಫರಿಂಗ್",
+      "price": "100 Mbps @ ₹699/-",
+      "extra": "20+ OTT APPS INCLUDED",
+      "extraKn": "20+ OTT ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಸೇರಿವೆ",
+      "image": "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=1600&q=80"
+    },
+    {
+      "id": 4,
+      "title": "Upgrade Your Home Network",
+      "titleKn": "ನಿಮ್ಮ ಮನೆಯ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಮೇಲ್ದರ್ಜೆಗೇರಿಸಿ",
+      "subtitle": "Free Installation. Free WiFi Router.",
+      "subtitleKn": "ಉಚಿತ ಅಳವಡಿಕೆ. ಉಚಿತ ವೈಫೈ ರೂಟರ್.",
+      "highlight": "Experience The Difference",
+      "highlightKn": "ವ್ಯತ್ಯಾಸವನ್ನು ಅನುಭವಿಸಿ",
+      "price": "Starts @ ₹399/-",
+      "extra": "UNLIMITED BROWSING",
+      "extraKn": "ಅಮಿತ ಬ್ರೌಸಿಂಗ್",
+      "image": "https://images.pexels.com/photos/29711663/pexels-photo-29711663.jpeg?w=1600&q=80"
+    },
+    {
+      "id": 5,
+      "title": "All In One Plan",
+      "titleKn": "ಆಲ್ ಇನ್ ಒನ್ ಪ್ಲಾನ್",
+      "subtitle": "Best Plan for Home and Entertainment",
+      "subtitleKn": "ಮನೆ ಮತ್ತು ಮನೋರಂಜನೆಗೆ ಅತ್ಯುತ್ತಮ ಪ್ಲಾನ್",
+      "highlight": "Experience The Difference",
+      "highlightKn": "ವ್ಯತ್ಯಾಸವನ್ನು ಅನುಭವಿಸಿ",
+      "price": "Starts @ ₹599/-",
+      "extra": "SPEED + 350 LIVE TV CHANNELS + 10 OTTs",
+      "extraKn": "ವೇಗ + 350 ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು + 10 OTTs",
+      "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=1600&q=80"
+    },
+    {
+      "id": 6,
+      "title": "As Per Your Need",
+      "titleKn": "ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ",
+      "subtitle": "Customisable Plan",
+      "subtitleKn": "ಕಸ್ಟಮೈಸ್ ಮಾಡಬಹುದಾದ ಪ್ಲಾನ್",
+      "highlight": "Most Reliable Internet and Best Entertainment",
+      "highlightKn": "ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ಇಂಟರ್ನೆಟ್ ಮತ್ತು ಅತ್ಯುತ್ತಮ ಮನೋರಂಜನೆ",
+      "price": "Starts @ ₹199/-",
+      "extra": "BEST FOR BILLING & CCTV FOR SHOPS",
+      "extraKn": "ಅಂಗಡಿಗಳ ಬಿಲ್ಲಿಂಗ್ ಮತ್ತು ಸಿಸಿಟಿವಿಗೆ ಉತ್ತಮ",
+      "image": "https://images.pexels.com/photos/32698507/pexels-photo-32698507.jpeg?w=1600&q=80"
+    }
+  ],
+  "settings": {
+    "subscribe_start_price": "399",
+    "feature_top_speed": "300+ Mbps",
+    "ott_display_label": "22 OTT",
+    "iptv_display_label": "350 Live Channels"
+  },
+  "phones": {
+    "main": { "number": "7259316656", "display": "+91 72593 16656" },
+    "helpdesk": { "number": "7259316656", "display": "+91 72593 16656" },
+    "owner": { "number": "7259316656", "display": "+91 72593 16656" },
+    "whatsapp": { "number": "7259316656", "display": "+91 72593 16656" }
+  },
+  "technicians": [
+    { "name": "Dilip", "phone": "9008414666", "phoneDisplay": "9008414666" },
+    { "name": "Shivu", "phone": "9008424666", "phoneDisplay": "9008424666" }
+  ]
+}

@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
 import { Check, Wifi } from "lucide-react";
-import { homePlans } from "../mock";
 import { Button } from "../components/ui/button";
 import { CtaSection } from "../components/Sections";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const HomePlans = () => {
+  const { homePlans } = usePlanCatalog();
+
   return (
     <>
       <PageHeader title="Home Plans" />

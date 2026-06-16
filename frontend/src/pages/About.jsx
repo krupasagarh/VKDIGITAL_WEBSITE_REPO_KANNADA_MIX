@@ -2,9 +2,11 @@ import React from "react";
 import PageHeader from "../components/PageHeader";
 import { CtaSection } from "../components/Sections";
 import { Target, Eye, Award, Users, ShieldCheck, Zap, Phone, Wrench } from "lucide-react";
-import { testimonials, technicians } from "../mock";
+import { testimonials } from "../mock";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const About = () => {
+  const { contacts } = usePlanCatalog();
   const values = [
     { icon: Zap, title: "Speed", text: "Lightning fast fiber connectivity with consistent speeds, always." },
     { icon: ShieldCheck, title: "Reliability", text: "99.9% uptime and a robust network that keeps you connected." },
@@ -84,18 +86,18 @@ const About = () => {
               For installation, repairs, or on-site support in your area, contact our technicians directly.
             </p>
             <ul className="mt-6 space-y-4">
-              {technicians.map((tech) => (
+              {contacts.technicians.map((tech) => (
                 <li
                   key={tech.name}
                   className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50 px-5 py-4"
                 >
                   <span className="font-semibold text-slate-900">{tech.name}</span>
                   <a
-                    href={`tel:${tech.phone}`}
+                    href={`tel:${tech.tel}`}
                     className="inline-flex items-center gap-2 text-yellow-700 font-bold hover:text-yellow-600 transition-colors"
                   >
                     <Phone size={16} />
-                    {tech.phoneDisplay}
+                    {tech.display}
                   </a>
                 </li>
               ))}

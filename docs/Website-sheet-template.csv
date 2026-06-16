@@ -1,0 +1,30 @@
+Section,ID,SpeedOrTitle,PriceOrTitleKn,Field4,Field5,Field6,Field7,Field8,Field9,Field10,Field11,Field12
+home_plan,1,50 Mbps,399,1 Month,Unlimited,no,no,,,,,
+home_plan,2,100 Mbps,699,1 Month,Unlimited,no,no,,,,,
+home_plan,3,150 Mbps,799,1 Month,Unlimited,yes,no,,,,,
+home_plan,4,200 Mbps,999,1 Month,Unlimited,yes,yes,,,,,
+home_plan,5,300 Mbps,1199,1 Month,Unlimited,yes,yes,,,,,
+business_plan,1,100 Mbps,1199,1 Month,Unlimited,yes,yes,,,,,
+business_plan,2,200 Mbps,1999,1 Month,Unlimited,yes,yes,,,,,
+business_plan,3,300 Mbps,4999,1 Month,Unlimited,yes,yes,,,,,
+business_plan,4,500 Mbps,6999,1 Month,Unlimited,yes,yes,,,,,
+homepage_card,internet,Internet,Wifi,Up to 50Mbps|Free Installation|Free WiFi router*,₹399,Starts From,no,/home-plans,View Plans,/ Month,,
+homepage_card,internet-ott,Internet + OTT,MonitorPlay,Up to 50Mbps|22 OTT|Free Installation|Free WiFi router*,₹599,Starts From,no,/home-plans,View Plans,/ Month,,
+homepage_card,internet-ott-iptv,Internet + OTT + IPTV,Tv,Up to 50Mbps|22 OTT|350 Live Channels|Free Installation|Free WiFi router*,₹699,Starts From,yes,/home-plans,View Plans,/ Month,,
+homepage_card,business,Internet + OTT + IPTV,Tv,Up to 100Mbps|22 OTT|350 Live Channels|Free Installation|Free WiFi router*,₹899,Starts From,yes,/home-plans,View Plans,/ Month,,
+hero_slide,1,IPTV / Cable TV for just ₹159,ಕೇವಲ ₹159ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ,350+ Live Channels on your Smart TV,ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಟಿವಿಯಲ್ಲಿ 350+ ಲೈವ್ ಚಾನೆಲ್‌ಗಳು,Best Entertainment with Cheapest Plan,ಅಗ್ಗದ ಪ್ಲಾನ್‌ನಲ್ಲಿ ಅತ್ಯುತ್ತಮ ಮನೋರಂಜನೆ,Cable TV @ ₹423/-,350+ CHANNELS + 20 MBPS,350+ ಚಾನೆಲ್‌ಗಳು + 20 MBPS,https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=1600&q=80
+hero_slide,2,Connect with the Most Reliable Broadband,ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ಬ್ರಾಡ್‌ಬ್ಯಾಂಡ್‌ಗೆ ಸಂಪರ್ಕಿಸಿ,Explore Our Exclusive OTT Internet Combo Plan,ನಮ್ಮ ವಿಶೇಷ OTT ಇಂಟರ್ನೆಟ್ ಕಾಂಬೊ ಪ್ಲಾನ್ ಅನ್ವೇಷಿಸಿ,Entertainment & Connectivity,ಮನೋರಂಜನೆ ಮತ್ತು ಸಂಪರ್ಕ,50 Mbps @ ₹499/-,350+ LIVE TV CHANNELS,350+ ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು,https://images.unsplash.com/photo-1692188071339-2825a8a997f1?w=1600&q=80
+hero_slide,3,Blazing Fast Fiber Internet,ಅತ್ಯಂತ ವೇಗದ ಫೈಬರ್ ಇಂಟರ್ನೆಟ್,Stream. Work. Play. Without Limits.,ಸ್ಟ್ರೀಮ್. ಕೆಲಸ. ಆಟ. ಮಿತಿಯಿಲ್ಲದೆ.,Unlimited Data Zero Buffering,ಅಮಿತ ಡೇಟಾ ಶೂನ್ಯ ಬಫರಿಂಗ್,100 Mbps @ ₹699/-,20+ OTT APPS INCLUDED,20+ OTT ಅಪ್ಲಿಕೇಶನ್‌ಗಳು ಸೇರಿವೆ,https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=1600&q=80
+hero_slide,4,Upgrade Your Home Network,ನಿಮ್ಮ ಮನೆಯ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಮೇಲ್ದರ್ಜೆಗೇರಿಸಿ,Free Installation. Free WiFi Router.,ಉಚಿತ ಅಳವಡಿಕೆ. ಉಚಿತ ವೈಫೈ ರೂಟರ್.,Experience The Difference,ವ್ಯತ್ಯಾಸವನ್ನು ಅನುಭವಿಸಿ,Starts @ ₹399/-,UNLIMITED BROWSING,ಅಮಿತ ಬ್ರೌಸಿಂಗ್,https://images.pexels.com/photos/29711663/pexels-photo-29711663.jpeg?w=1600&q=80
+hero_slide,5,All In One Plan,ಆಲ್ ಇನ್ ಒನ್ ಪ್ಲಾನ್,Best Plan for Home and Entertainment,ಮನೆ ಮತ್ತು ಮನೋರಂಜನೆಗೆ ಅತ್ಯುತ್ತಮ ಪ್ಲಾನ್,Experience The Difference,ವ್ಯತ್ಯಾಸವನ್ನು ಅನುಭವಿಸಿ,Starts @ ₹599/-,SPEED + 350 LIVE TV CHANNELS + 10 OTTs,ವೇಗ + 350 ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು + 10 OTTs,https://images.unsplash.com/photo-1601944177325-f8867652837f?w=1600&q=80
+hero_slide,6,As Per Your Need,ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ತಕ್ಕಂತೆ,Customisable Plan,ಕಸ್ಟಮೈಸ್ ಮಾಡಬಹುದಾದ ಪ್ಲಾನ್,Most Reliable Internet and Best Entertainment,ಅತ್ಯಂತ ವಿಶ್ವಾಸಾರ್ಹ ಇಂಟರ್ನೆಟ್ ಮತ್ತು ಅತ್ಯುತ್ತಮ ಮನೋರಂಜನೆ,Starts @ ₹199/-,BEST FOR BILLING & CCTV FOR SHOPS,ಅಂಗಡಿಗಳ ಬಿಲ್ಲಿಂಗ್ ಮತ್ತು ಸಿಸಿಟಿವಿಗೆ ಉತ್ತಮ,https://images.pexels.com/photos/32698507/pexels-photo-32698507.jpeg?w=1600&q=80
+setting,subscribe_start_price,399,,,,,,,,,,
+setting,feature_top_speed,300+ Mbps,,,,,,,,,,
+setting,ott_display_label,22 OTT,,,,,,,,,,
+setting,iptv_display_label,350 Live Channels,,,,,,,,,,
+phone,main,7259316656,+91 72593 16656,,,,,,,,,
+phone,helpdesk,7259316656,+91 72593 16656,,,,,,,,,
+phone,owner,7259316656,+91 72593 16656,,,,,,,,,
+phone,whatsapp,7259316656,+91 72593 16656,,,,,,,,,
+technician,Dilip,9008414666,9008414666,,,,,,,,,
+technician,Shivu,9008424666,9008424666,,,,,,,,,

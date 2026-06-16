@@ -98,3 +98,22 @@
 
 /* Scrollbar for light theme */
 ::selection { background: #facc15; color: #0f172a; }
+
+/* WhatsApp floater */
+@keyframes whatsapp-pulse {
+  0%, 100% { box-shadow: 0 10px 25px -5px rgb(37 211 102 / 0.35); }
+  50% { box-shadow: 0 10px 30px 0 rgb(37 211 102 / 0.55); }
+}
+
+.whatsapp-float {
+  animation: whatsapp-pulse 2.5s ease-in-out infinite;
+}
+
+@media (max-width: 640px) {
+  .whatsapp-float {
+    bottom: 1.25rem;
+    right: 1.25rem;
+    height: 3.25rem;
+    width: 3.25rem;
+  }
+}

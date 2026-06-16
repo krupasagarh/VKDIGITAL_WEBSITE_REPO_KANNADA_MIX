@@ -13,6 +13,8 @@ import Login from "./pages/Login";
 import QuickPay from "./pages/QuickPay";
 import PlanBuilder from "./pages/PlanBuilder";
 import { Toaster } from "./components/ui/toaster";
+import { PlanCatalogProvider } from "./context/PlanCatalogContext";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -26,6 +28,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <PlanCatalogProvider>
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -48,7 +51,9 @@ function App() {
           <Route path="/refund" element={<GenericPage title="Refund Policy" />} />
         </Routes>
         <Footer />
+        <WhatsAppFloat />
         <Toaster />
+        </PlanCatalogProvider>
       </BrowserRouter>
     </div>
   );

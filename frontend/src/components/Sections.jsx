@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { subscribeImage, brand } from "../mock";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 export const SubscribeSection = () => {
+  const { lowestSpeedPrice, formatRupee } = usePlanCatalog();
+  const startPrice = lowestSpeedPrice != null ? formatRupee(lowestSpeedPrice) : "₹399";
+
   return (
     <section className="bg-white py-20">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -26,7 +30,7 @@ export const SubscribeSection = () => {
           </p>
           <div className="mt-8 flex items-end gap-2">
             <span className="text-slate-500 text-lg">Starts From</span>
-            <span className="text-5xl font-extrabold text-yellow-600 leading-none">₹399</span>
+            <span className="text-5xl font-extrabold text-yellow-600 leading-none">{startPrice}</span>
             <span className="text-slate-500 text-lg">Per Month</span>
           </div>
           <Button asChild className="mt-8 bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 px-7 btn-shine">
@@ -39,6 +43,8 @@ export const SubscribeSection = () => {
 };
 
 export const CtaSection = () => {
+  const { contacts } = usePlanCatalog();
+
   return (
     <section className="relative bg-yellow-400 py-16 overflow-hidden">
       <div className="absolute inset-0 dot-pattern opacity-40" />
@@ -54,8 +60,8 @@ export const CtaSection = () => {
             <Link to="/home-plans">View All Plans</Link>
           </Button>
           <span className="text-slate-800">or</span>
-          <a href={`tel:${brand.helpdeskPhone}`} className="text-slate-900 font-bold text-lg underline underline-offset-4 hover:text-white">
-            {brand.helpdeskPhoneDisplay}
+          <a href={`tel:${contacts.helpdesk.tel}`} className="text-slate-900 font-bold text-lg underline underline-offset-4 hover:text-white">
+            {contacts.helpdesk.display}
           </a>
         </div>
       </div>
@@ -111,8 +117,9 @@ export const OttMarquee = () => {
 };
 
 export const FeatureStrip = () => {
+  const { highestSpeedLabel } = usePlanCatalog();
   const items = [
-    { title: "500+ Mbps", sub: "Ultra Fast Speed", subKn: "ಅತಿ ವೇಗದ ಸ್ಪೀಡ್" },
+    { title: highestSpeedLabel, sub: "Ultra Fast Speed", subKn: "ಅತಿ ವೇಗದ ಸ್ಪೀಡ್" },
     { title: "24/7", sub: "Customer Support", subKn: "ಗ್ರಾಹಕ ಬೆಂಬಲ" },
     { title: "350+", sub: "Live TV Channels", subKn: "ಲೈವ್ ಟಿವಿ ಚಾನೆಲ್‌ಗಳು" },
     { title: "20+", sub: "OTT Applications", subKn: "OTT ಅಪ್ಲಿಕೇಶನ್‌ಗಳು" },

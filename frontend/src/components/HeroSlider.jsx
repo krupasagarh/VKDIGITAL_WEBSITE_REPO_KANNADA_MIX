@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Play, Wifi } from "lucide-react";
-import { heroSlides } from "../mock";
 import { Button } from "./ui/button";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 
 const HeroSlider = () => {
+  const { heroSlides } = usePlanCatalog();
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => setIdx((i) => (i + 1) % heroSlides.length), 6000);
     return () => clearInterval(t);
-  }, []);
+  }, [heroSlides.length]);
 
   const go = (dir) =>
     setIdx((i) => (i + dir + heroSlides.length) % heroSlides.length);

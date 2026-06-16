@@ -3,9 +3,11 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Mail, Phone, ChevronRight, Menu, X, User } from "lucide-react";
 import Logo from "./Logo";
 import { brand, navLinks } from "../mock";
+import { usePlanCatalog } from "../context/PlanCatalogContext";
 import { Button } from "./ui/button";
 
 const Navbar = () => {
+  const { contacts } = usePlanCatalog();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -27,8 +29,8 @@ const Navbar = () => {
             <a href={`mailto:${brand.email}`} className="flex items-center gap-2 hover:text-slate-800 transition-colors">
               <Mail size={14} /> {brand.email}
             </a>
-            <a href={`tel:${brand.phone}`} className="flex items-center gap-2 hover:text-slate-800 transition-colors">
-              <Phone size={14} /> {brand.phone}
+            <a href={`tel:${contacts.main.tel}`} className="flex items-center gap-2 hover:text-slate-800 transition-colors">
+              <Phone size={14} /> {contacts.main.display}
             </a>
           </div>
           <Link to="/quick-pay" className="flex items-center gap-1 hover:text-slate-800 transition-colors font-medium">

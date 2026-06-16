@@ -1,22 +1,48 @@
 import { fetchPlanCatalog } from "../api";
 import { fetchPlanCatalogFromGoogleSheet } from "./planCatalogSheet";
+import { fetchWebsiteContentFromGoogleSheet } from "./websiteSheetLoader";
+import { getWebsiteFallback, resolveWebsiteContent } from "./websiteSheet";
 
-/** Load catalog from Google Sheet first, then backend API, or return null to use bundled JSON. */
+/** Load Data + Website tabs from Google Sheet, then backend API, or bundled fallbacks. */
 export async function loadRemotePlanCatalog() {
+  let catalog = null;
+  let website = null;
+  let source = "bundled";
+
   try {
-    return await fetchPlanCatalogFromGoogleSheet();
+    const dataRes = await fetchPlanCatalogFromGoogleSheet();
+    catalog = dataRes.catalog;
+    source = dataRes.source;
   } catch (err) {
-    console.warn("Direct Google Sheet load failed.", err);
+    console.warn("Direct Google Sheet Data tab load failed.", err);
   }
 
   try {
-    const apiRes = await fetchPlanCatalog();
-    if (apiRes?.catalog) {
-      return { catalog: apiRes.catalog, source: apiRes.source || "api" };
+    const webRes = await fetchWebsiteContentFromGoogleSheet();
+    website = webRes.website;
+    if (source === "bundled") source = webRes.source;
+  } catch (err) {
+    console.warn("Direct Google Sheet Website tab load failed.", err);
+  }
+
+  if (!catalog || !website) {
+    try {
+      const apiRes = await fetchPlanCatalog();
+      if (apiRes?.catalog && !catalog) catalog = apiRes.catalog;
+      if (apiRes?.website && !website) website = apiRes.website;
+      if (apiRes?.catalog || apiRes?.website) {
+        source = apiRes.source || "api";
+      }
+    } catch (err) {
+      console.warn("Plan catalog API unavailable.", err);
     }
-  } catch (err) {
-    console.warn("Plan catalog API unavailable.", err);
   }
 
-  return null;
+  if (!catalog && !website) return null;
+
+  return {
+    catalog,
+    website: resolveWebsiteContent(website || getWebsiteFallback()),
+    source,
+  };
 }
