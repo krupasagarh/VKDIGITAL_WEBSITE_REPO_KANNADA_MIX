@@ -23,9 +23,12 @@ import {
 } from "../components/ui/table";
 import { useToast } from "../hooks/use-toast";
 import { planBuilderConfig } from "../mock";
-import { postPlanLead, getApiBase } from "../api";
+import { postPlanLead, getApiBase, fetchPlanCatalog } from "../api";
 import {
-  catalog,
+  getPlanCatalog,
+  setPlanCatalog,
+  getDefaultPlanSelections,
+  syncPlanSelections,
   computePlanQuote,
   formatInr,
   getOttAppsForPlan,
@@ -100,21 +103,18 @@ function BillBreakdownCard({ quote, onBookPlan, showBookButton = false }) {
 
 const LS_KEY = "vk_plan_requests";
 
-const defaultSpeed = catalog.speeds.find((s) => s.name === "100 MBPS")?.name || catalog.speeds[0].name;
-const defaultIptv =
-  catalog.iptvPlans.find((p) => p.name === "Cable Kan,Telugu,Tamil, Hindi HD")?.name ||
-  catalog.iptvPlans[0].name;
-const defaultOtt = catalog.ottPlans.find((p) => p.name === "26 OTT Apps")?.name || catalog.ottPlans[0].name;
+const initialSelections = getDefaultPlanSelections();
 
 const PlanBuilder = () => {
   const { toast } = useToast();
   const [tab, setTab] = useState("build");
-  const [speedName, setSpeedName] = useState(defaultSpeed);
-  const [iptvName, setIptvName] = useState(defaultIptv);
-  const [ottName, setOttName] = useState(defaultOtt);
+  const [speedName, setSpeedName] = useState(initialSelections.speedName);
+  const [iptvName, setIptvName] = useState(initialSelections.iptvName);
+  const [ottName, setOttName] = useState(initialSelections.ottName);
   const [months, setMonths] = useState(6);
   const [budget, setBudget] = useState(10000);
   const [busy, setBusy] = useState(false);
+  const [catalogSource, setCatalogSource] = useState("bundled");
   const bookingFormRef = useRef(null);
 
   const [contact, setContact] = useState({
@@ -127,11 +127,34 @@ const PlanBuilder = () => {
 
   const quote = useMemo(
     () => computePlanQuote({ speedName, iptvName, ottName, months }),
-    [speedName, iptvName, ottName, months]
+    [speedName, iptvName, ottName, months, catalogSource]
   );
 
-  const budgetResults = useMemo(() => searchPlansByBudget(budget, 20), [budget]);
-  const ottApps = useMemo(() => getOttAppsForPlan(ottName), [ottName]);
+  const budgetResults = useMemo(() => searchPlansByBudget(budget, 20), [budget, catalogSource]);
+  const ottApps = useMemo(() => getOttAppsForPlan(ottName), [ottName, catalogSource]);
+  const catalog = getPlanCatalog();
+
+  React.useEffect(() => {
+    let cancelled = false;
+
+    fetchPlanCatalog()
+      .then((res) => {
+        if (cancelled || !res?.catalog) return;
+        setPlanCatalog(res.catalog);
+        setCatalogSource(res.source || "google_sheets");
+        const synced = syncPlanSelections({ speedName, iptvName, ottName });
+        setSpeedName(synced.speedName);
+        setIptvName(synced.iptvName);
+        setOttName(synced.ottName);
+      })
+      .catch((err) => {
+        console.warn("Using bundled plan catalog; Google Sheet API unavailable.", err);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const onContactChange = (e) =>
     setContact((c) => ({ ...c, [e.target.name]: e.target.value }));
@@ -249,6 +272,11 @@ const PlanBuilder = () => {
               ನಿಮ್ಮ ಪ್ಲಾನ್ ರಚಿಸಿ ಅಥವಾ ಬಜೆಟ್‌ಗೆ ಸರಿಹೊಂದುವ ಪ್ಲಾನ್ ಹುಡುಕಿ
             </p>
             <p className="mt-3 text-sm text-slate-500">{planBuilderConfig.disclaimerEn}</p>
+            {catalogSource === "google_sheets" && (
+              <p className="mt-2 text-xs font-medium text-green-700">
+                Live prices loaded from Google Sheet
+              </p>
+            )}
             <p className="mt-1 text-sm text-slate-500" lang="kn">
               {planBuilderConfig.disclaimerKn}
             </p>

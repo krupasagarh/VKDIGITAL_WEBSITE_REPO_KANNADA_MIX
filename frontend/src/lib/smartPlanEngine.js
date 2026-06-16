@@ -1,8 +1,16 @@
-import catalog from "../data/smartPlanCatalog.json";
+import fallbackCatalog from "../data/smartPlanCatalog.json";
 
-const { speeds, iptvPlans, ottPlans, gstRate, installFee, freeInstallThreshold } = catalog;
+let activeCatalog = fallbackCatalog;
+let cachedCombos = null;
 
-export { catalog };
+export function getPlanCatalog() {
+  return activeCatalog;
+}
+
+export function setPlanCatalog(catalog) {
+  activeCatalog = catalog;
+  cachedCombos = null;
+}
 
 export function formatInr(amount) {
   const n = Number(amount);
@@ -22,6 +30,9 @@ export function buildPlanDescription(speed, iptv, ott) {
 }
 
 export function computePlanQuote({ speedName, iptvName, ottName, months }) {
+  const { speeds, iptvPlans, ottPlans, gstRate, installFee, freeInstallThreshold } =
+    activeCatalog;
+
   const speed = findByName(speeds, speedName);
   const iptv = findByName(iptvPlans, iptvName);
   const ott = findByName(ottPlans, ottName);
@@ -57,12 +68,12 @@ export function computePlanQuote({ speedName, iptvName, ottName, months }) {
   };
 }
 
-let cachedCombos = null;
-
 export function getAllPlanCombos() {
   if (cachedCombos) return cachedCombos;
 
+  const { speeds, iptvPlans, ottPlans } = activeCatalog;
   const combos = [];
+
   for (const speed of speeds) {
     for (const iptv of iptvPlans) {
       for (const ott of ottPlans) {
@@ -104,8 +115,40 @@ export function searchPlansByBudget(budget, limit = 20) {
 }
 
 export function getOttAppsForPlan(ottName) {
-  if (ottName === "10 OTT Apps") return catalog.ottApps["10"];
-  if (ottName === "26 OTT Apps") return catalog.ottApps["26"];
-  if (ottName === "SmartPlay TV (Live TV + 16 OTTs)") return catalog.ottApps["16"];
+  const ottApps = activeCatalog.ottApps || {};
+  if (ottName === "10 OTT Apps") return ottApps["10"] || [];
+  if (ottName === "26 OTT Apps") return ottApps["26"] || [];
+  if (ottName === "SmartPlay TV (Live TV + 16 OTTs)") return ottApps["16"] || [];
   return [];
+}
+
+export function getDefaultPlanSelections() {
+  const catalog = activeCatalog;
+  return {
+    speedName:
+      catalog.speeds.find((s) => s.name === "100 MBPS")?.name || catalog.speeds[0]?.name || "",
+    iptvName:
+      catalog.iptvPlans.find((p) => p.name === "Cable Kan,Telugu,Tamil, Hindi HD")?.name ||
+      catalog.iptvPlans[0]?.name ||
+      "",
+    ottName:
+      catalog.ottPlans.find((p) => p.name === "26 OTT Apps")?.name ||
+      catalog.ottPlans[0]?.name ||
+      "",
+  };
+}
+
+export function syncPlanSelections(selections) {
+  const catalog = activeCatalog;
+  return {
+    speedName: catalog.speeds.some((s) => s.name === selections.speedName)
+      ? selections.speedName
+      : catalog.speeds[0]?.name || "",
+    iptvName: catalog.iptvPlans.some((p) => p.name === selections.iptvName)
+      ? selections.iptvName
+      : catalog.iptvPlans[0]?.name || "",
+    ottName: catalog.ottPlans.some((p) => p.name === selections.ottName)
+      ? selections.ottName
+      : catalog.ottPlans[0]?.name || "",
+  };
 }

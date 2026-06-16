@@ -13,6 +13,8 @@ import uuid
 from datetime import datetime, timezone
 from email.message import EmailMessage
 
+from plan_catalog import load_plan_catalog
+
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -212,6 +214,20 @@ class ContactLeadPayload(BaseModel):
     address: str = ""
     message: str = ""
     at: str
+
+
+@api_router.get("/plans/catalog")
+async def get_plan_catalog(refresh: bool = False):
+    try:
+        catalog, source = await asyncio.to_thread(load_plan_catalog, force_refresh=refresh)
+        return {
+            "ok": True,
+            "source": source,
+            "catalog": catalog,
+        }
+    except Exception as exc:
+        logger.exception("Plan catalog unavailable")
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @api_router.post("/leads/plan-request")
