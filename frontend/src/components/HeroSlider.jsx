@@ -9,9 +9,16 @@ const HeroSlider = () => {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
+    if (!heroSlides.length) return undefined;
     const t = setInterval(() => setIdx((i) => (i + 1) % heroSlides.length), 6000);
     return () => clearInterval(t);
   }, [heroSlides.length]);
+
+  useEffect(() => {
+    if (idx >= heroSlides.length) setIdx(0);
+  }, [heroSlides.length, idx]);
+
+  if (!heroSlides.length) return null;
 
   const go = (dir) =>
     setIdx((i) => (i + dir + heroSlides.length) % heroSlides.length);
@@ -36,24 +43,36 @@ const HeroSlider = () => {
         </div>
       ))}
 
-      {/* Decorative pattern */}
       <div className="absolute inset-0 dot-pattern opacity-60 pointer-events-none" />
 
-      {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto h-full px-6 flex items-center">
         <div key={slide.id} className="fade-in-up max-w-2xl text-white">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-xs uppercase tracking-wider">
             <Wifi size={14} /> {slide.subtitle}
           </div>
+          {slide.subtitleKn ? (
+            <p className="mt-2 text-sm md:text-base font-medium text-white/85" lang="kn">
+              {slide.subtitleKn}
+            </p>
+          ) : null}
+
           <h1 className="mt-6 text-4xl md:text-6xl font-extrabold leading-[1.05]">
             {slide.title}
           </h1>
-          <p className="mt-2 text-xl md:text-2xl font-semibold text-white/90" lang="kn">
-            {slide.titleKn}
-          </p>
+          {slide.titleKn ? (
+            <p className="mt-2 text-xl md:text-2xl font-semibold text-white/90" lang="kn">
+              {slide.titleKn}
+            </p>
+          ) : null}
+
           <p className="mt-4 text-2xl md:text-3xl font-bold text-yellow-300">
             {slide.highlight}
           </p>
+          {slide.highlightKn ? (
+            <p className="mt-1 text-lg md:text-xl font-semibold text-yellow-200/90" lang="kn">
+              {slide.highlightKn}
+            </p>
+          ) : null}
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <div className="bg-slate-900 border-2 border-yellow-300 rounded-md px-5 py-3">
@@ -62,8 +81,13 @@ const HeroSlider = () => {
               </div>
             </div>
             <div className="text-white font-bold text-lg md:text-xl">+</div>
-            <div className="text-white font-extrabold text-xl md:text-2xl">
-              {slide.extra}
+            <div>
+              <div className="text-white font-extrabold text-xl md:text-2xl">{slide.extra}</div>
+              {slide.extraKn ? (
+                <div className="text-white/90 font-semibold text-base md:text-lg mt-1" lang="kn">
+                  {slide.extraKn}
+                </div>
+              ) : null}
             </div>
           </div>
 
@@ -80,7 +104,6 @@ const HeroSlider = () => {
         </div>
       </div>
 
-      {/* Controls */}
       <button
         onClick={() => go(-1)}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/20 hover:bg-white/35 backdrop-blur border border-white/30 text-white flex items-center justify-center transition-colors"
@@ -96,7 +119,6 @@ const HeroSlider = () => {
         <ChevronRight size={22} />
       </button>
 
-      {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroSlides.map((_, i) => (
           <button

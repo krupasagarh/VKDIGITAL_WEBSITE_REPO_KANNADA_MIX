@@ -50,12 +50,14 @@ def _slugify_id(text: str) -> str:
 
 
 def _infer_setting_key(key: str, value: str) -> str:
-    key = str(key or "").strip()
+    key = str(key or "").strip().lower().replace(" ", "_")
     value = str(value or "").strip()
     if key:
         return key
     if not value:
         return ""
+    if value.lower() in {"yes", "no", "true", "false", "y", "n"}:
+        return "welcome_plans_enabled"
     digits_only = value.replace(".", "").replace(",", "")
     if value.replace(".", "", 1).isdigit() or (digits_only.isdigit() and "." in value):
         if len(value.replace(".", "").replace(",", "")) >= 10:
@@ -68,6 +70,30 @@ def _infer_setting_key(key: str, value: str) -> str:
     if any(token in value.lower() for token in ("live", "channel", "iptv")):
         return "iptv_display_label"
     return ""
+
+
+KNOWN_SETTING_KEYS = {
+    "welcome_plans_enabled",
+    "subscribe_start_price",
+    "feature_top_speed",
+    "ott_display_label",
+    "iptv_display_label",
+}
+
+
+def _parse_setting_row(row: List[str]) -> Optional[tuple[str, str]]:
+    key = str(row[1] if len(row) > 1 else "").strip().lower().replace(" ", "_")
+    value = row[2].strip() if len(row) > 2 else ""
+    if not key and not value and len(row) > 3:
+        value = row[3].strip()
+    column_c_key = str(row[2] if len(row) > 2 else "").strip().lower().replace(" ", "_")
+    if not key and column_c_key in KNOWN_SETTING_KEYS:
+        key = column_c_key
+        value = row[3].strip() if len(row) > 3 else ""
+    key = _infer_setting_key(key, value)
+    if not key:
+        return None
+    return key, value
 
 
 PHONE_ROLE_ORDER = ["main", "helpdesk", "owner", "whatsapp"]
@@ -170,6 +196,9 @@ def parse_website_sheet_csv(csv_text: str) -> Dict[str, Any]:
         "phones": {},
         "technicians": [],
         "settings": {},
+        "termOffers": [],
+        "termPlanSpeeds": [],
+        "welcomePlans": [],
     }
     if not rows:
         return result
@@ -244,13 +273,56 @@ def parse_website_sheet_csv(csv_text: str) -> Dict[str, Any]:
                 }
             )
         elif section == "setting":
-            key = row[1].strip() if len(row) > 1 else ""
-            value = row[2].strip() if len(row) > 2 else ""
-            if not key and not value and len(row) > 3:
-                value = row[3].strip()
-            key = _infer_setting_key(key, value)
-            if key:
-                result["settings"][key] = value
+            parsed = _parse_setting_row(row)
+            if parsed:
+                result["settings"][parsed[0]] = parsed[1]
+        elif section == "term_offer":
+            try:
+                total_months = int(float(row[2].strip())) if len(row) > 2 else 0
+                free_months = int(float(row[3].strip())) if len(row) > 3 else 0
+            except ValueError:
+                continue
+            label = row[4].strip() if len(row) > 4 else ""
+            if total_months <= 0 or free_months < 0 or not label:
+                continue
+            result["termOffers"].append(
+                {
+                    "id": int(row[1]) if len(row) > 1 and str(row[1]).strip().isdigit() else len(result["termOffers"]) + 1,
+                    "totalMonths": total_months,
+                    "freeMonths": free_months,
+                    "label": label,
+                }
+            )
+        elif section == "term_plan":
+            speed = row[2].strip() if len(row) > 2 else ""
+            if speed:
+                result["termPlanSpeeds"].append(speed)
+        elif section == "welcome_plan":
+            name = row[2].strip() if len(row) > 2 else ""
+            speed = row[3].strip() if len(row) > 3 else ""
+            try:
+                months = int(float(row[4].strip())) if len(row) > 4 else 0
+            except ValueError:
+                continue
+            price = _parse_price(row[5]) if len(row) > 5 else None
+            if not name or not speed or months <= 0 or price is None:
+                continue
+            ott_apps = _split_features(row[7]) if len(row) > 7 else []
+            try:
+                ott_count = int(float(row[6].strip())) if len(row) > 6 and str(row[6]).strip() else len(ott_apps)
+            except ValueError:
+                ott_count = len(ott_apps)
+            result["welcomePlans"].append(
+                {
+                    "id": int(row[1]) if len(row) > 1 and str(row[1]).strip().isdigit() else len(result["welcomePlans"]) + 1,
+                    "name": name,
+                    "speed": speed,
+                    "months": months,
+                    "price": price,
+                    "ottCount": ott_count,
+                    "ottApps": ott_apps,
+                }
+            )
 
     result["heroSlides"].sort(key=lambda slide: slide["id"])
     return result
@@ -263,7 +335,7 @@ def _fetch_sheet_csv(sheet_id: str, sheet_tab: str) -> str:
     )
     response = requests.get(url, timeout=20)
     response.raise_for_status()
-    return response.text
+    return response.content.decode("utf-8")
 
 
 def has_website_content(website: Dict[str, Any]) -> bool:
@@ -274,6 +346,8 @@ def has_website_content(website: Dict[str, Any]) -> bool:
         or website.get("heroSlides")
         or website.get("phones")
         or website.get("technicians")
+        or website.get("termOffers")
+        or website.get("welcomePlans")
         or website.get("settings")
     )
 

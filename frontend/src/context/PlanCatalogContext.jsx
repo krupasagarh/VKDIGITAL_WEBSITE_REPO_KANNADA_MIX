@@ -1,8 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { loadRemotePlanCatalog } from "../lib/loadPlanCatalog";
-import { formatRupee, getHighestSpeedLabel, getLowestSpeedPrice } from "../lib/internetPlans";
+import { formatRupee, getHighestSpeedLabel, getLowestSpeedPrice, applyHeroSlidesFromSpeeds } from "../lib/internetPlans";
 import { buildContacts } from "../lib/contacts";
-import { getWebsiteFallback, parsePrice, resolveWebsiteContent } from "../lib/websiteSheet";
+import { getWebsiteFallback, parsePrice, resolveWebsiteContent, isWelcomePlansEnabled } from "../lib/websiteSheet";
 import { getPlanCatalog, setPlanCatalog } from "../lib/smartPlanEngine";
 
 const PlanCatalogContext = createContext(null);
@@ -45,6 +45,7 @@ export function PlanCatalogProvider({ children }) {
 
   const value = useMemo(() => {
     const content = resolveWebsiteContent(website);
+    const heroSlides = applyHeroSlidesFromSpeeds(content.heroSlides, speeds);
     const lowestFromPlans = content.homePlans.length
       ? content.homePlans.reduce(
           (min, p) => (p.price < min ? p.price : min),
@@ -63,7 +64,11 @@ export function PlanCatalogProvider({ children }) {
       homePlans: content.homePlans,
       businessPlans: content.businessPlans,
       homepagePlans: content.homepageCards,
-      heroSlides: content.heroSlides,
+      heroSlides,
+      termOffers: content.termOffers || [],
+      termPlanSpeeds: content.termPlanSpeeds || [],
+      welcomePlans: content.welcomePlans || [],
+      welcomePlansEnabled: isWelcomePlansEnabled(content.settings),
       lowestSpeedPrice: settingsNumber(
         content.settings,
         "subscribe_start_price",

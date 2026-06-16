@@ -40,3 +40,27 @@ export async function postContactLead(payload) {
   });
   return data;
 }
+
+export async function customerLogin(payload) {
+  if (!base) throw new Error("API URL not configured");
+  const { data } = await axios.post(`${base}/api/customer/login`, payload, {
+    timeout: 30000,
+    headers: { "Content-Type": "application/json" },
+  });
+  return data;
+}
+
+export async function fetchCustomerDashboard(token) {
+  if (!base) throw new Error("API URL not configured");
+  const { data } = await axios.get(`${base}/api/customer/dashboard`, {
+    timeout: 240000,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data;
+}
+
+export async function fetchCustomerPortalStatus() {
+  if (!base) return { enabled: false };
+  const { data } = await axios.get(`${base}/api/customer/portal-status`, { timeout: 10000 });
+  return data;
+}

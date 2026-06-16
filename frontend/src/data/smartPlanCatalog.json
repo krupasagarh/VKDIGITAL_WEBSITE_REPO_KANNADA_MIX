@@ -113,18 +113,32 @@
       "price": 0.0
     }
   ],
+  "termOffers": [
+    {
+      "id": 1,
+      "totalMonths": 6,
+      "freeMonths": 1,
+      "label": "Buy 6 Months — 1 Month Free"
+    },
+    {
+      "id": 2,
+      "totalMonths": 10,
+      "freeMonths": 2,
+      "label": "Buy 10 Months — 2 Months Free"
+    }
+  ],
   "ottApps": {
     "10": [
-      "JioHotstar",
-      "SonyLiv",
-      "Zee5",
-      "Playbox TV",
-      "OMTV",
-      "Discovery+",
+      "Zee5 Premium",
+      "Sony Liv Premium",
+      "Discovery Plus",
+      "Shemaroo Me",
+      "OM Tv",
       "Fancode",
       "Hubhopper",
-      "Shemaroo Me",
-      "iTap"
+      "Playbox TV",
+      "Hotstar",
+      "itap"
     ],
     "16": [
       "ZEE5",

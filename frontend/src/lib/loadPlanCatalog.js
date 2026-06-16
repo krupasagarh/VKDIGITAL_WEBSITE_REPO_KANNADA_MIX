@@ -42,7 +42,7 @@ export async function loadRemotePlanCatalog() {
 
   return {
     catalog,
-    website: resolveWebsiteContent(website || getWebsiteFallback()),
+    website: website || getWebsiteFallback(),
     source,
   };
 }

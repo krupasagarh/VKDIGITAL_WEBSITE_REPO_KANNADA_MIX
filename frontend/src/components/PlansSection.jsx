@@ -52,6 +52,11 @@ const PlansSection = () => {
                 <h3 className={`${p.subtitle ? "mt-2" : ""} text-2xl font-extrabold`}>
                   {p.title}
                 </h3>
+                {p.titleKn ? (
+                  <p className="mt-1 text-base font-semibold text-yellow-500/90" lang="kn">
+                    {p.titleKn}
+                  </p>
+                ) : null}
 
                 <div className={`mt-6 mx-auto w-20 h-20 rounded-full flex items-center justify-center ${
                   p.popular ? "bg-yellow-100 text-yellow-600" : "bg-yellow-400/20 text-yellow-600"

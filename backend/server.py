@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, Header, HTTPException
+from fastapi import Depends, FastAPI, APIRouter, Header, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -15,6 +15,8 @@ from email.message import EmailMessage
 
 from plan_catalog import load_plan_catalog
 from website_content import load_website_content
+from customer_hub.config import customer_portal_enabled
+from customer_hub import build_customer_dashboard, create_customer_token, decode_customer_token, validate_phone
 
 
 ROOT_DIR = Path(__file__).parent
@@ -215,6 +217,67 @@ class ContactLeadPayload(BaseModel):
     address: str = ""
     message: str = ""
     at: str
+
+
+class CustomerLoginPayload(BaseModel):
+    phone: str
+    stb_id: str = ""
+    password: str = ""
+
+
+def _customer_auth(authorization: Optional[str] = Header(default=None)) -> Dict[str, Any]:
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="Missing customer session")
+    token = authorization.split(" ", 1)[1].strip()
+    try:
+        return decode_customer_token(token)
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
+
+
+@api_router.get("/customer/portal-status")
+async def customer_portal_status():
+    return {
+        "enabled": customer_portal_enabled(),
+        "providers": ["railtel", "hathway", "bix42", "mobize"],
+    }
+
+
+@api_router.post("/customer/login")
+async def customer_login(payload: CustomerLoginPayload):
+    if not customer_portal_enabled():
+        raise HTTPException(
+            status_code=503,
+            detail="Customer portal is disabled on this server. Set CUSTOMER_PORTAL_ENABLED=true in backend/.env",
+        )
+    try:
+        phone = validate_phone(payload.phone)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    stb_id = (payload.stb_id or "").strip().upper() or None
+    token = create_customer_token(phone, stb_id=stb_id)
+    return {
+        "ok": True,
+        "token": token,
+        "phone": phone,
+        "stb_id": stb_id,
+    }
+
+
+@api_router.get("/customer/dashboard")
+async def customer_dashboard(session: Dict[str, Any] = Depends(_customer_auth)):
+    if not customer_portal_enabled():
+        raise HTTPException(status_code=503, detail="Customer portal is disabled on this server")
+    try:
+        dashboard = await build_customer_dashboard(
+            session["phone"],
+            stb_id=session.get("stb_id"),
+        )
+        return dashboard
+    except Exception as exc:
+        logger.exception("Customer dashboard lookup failed")
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
 
 
 @api_router.get("/plans/catalog")

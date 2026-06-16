@@ -65,8 +65,8 @@
   "heroSlides": [
     {
       "id": 1,
-      "title": "IPTV / Cable TV for just ₹159",
-      "titleKn": "ಕೇವಲ ₹159ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
+      "title": "IPTV / Cable TV for just ₹149",
+      "titleKn": "ಕೇವಲ ₹149ಕ್ಕೆ IPTV / ಕೇಬಲ್ ಟಿವಿ",
       "subtitle": "350+ Live Channels on your Smart TV",
       "subtitleKn": "ನಿಮ್ಮ ಸ್ಮಾರ್ಟ್ ಟಿವಿಯಲ್ಲಿ 350+ ಲೈವ್ ಚಾನೆಲ್‌ಗಳು",
       "highlight": "Best Entertainment with Cheapest Plan",
@@ -146,7 +146,8 @@
     "subscribe_start_price": "399",
     "feature_top_speed": "300+ Mbps",
     "ott_display_label": "22 OTT",
-    "iptv_display_label": "350 Live Channels"
+    "iptv_display_label": "350 Live Channels",
+    "welcome_plans_enabled": "no"
   },
   "phones": {
     "main": { "number": "7259316656", "display": "+91 72593 16656" },
@@ -157,5 +158,94 @@
   "technicians": [
     { "name": "Dilip", "phone": "9008414666", "phoneDisplay": "9008414666" },
     { "name": "Shivu", "phone": "9008424666", "phoneDisplay": "9008424666" }
+  ],
+  "termOffers": [
+    { "id": 1, "totalMonths": 6, "freeMonths": 1, "label": "Buy 6 Months — 1 Month Free" },
+    { "id": 2, "totalMonths": 10, "freeMonths": 2, "label": "Buy 10 Months — 2 Months Free" }
+  ],
+  "termPlanSpeeds": [
+    "20 MBPS",
+    "30 MBPS",
+    "40 MBPS",
+    "50 MBPS",
+    "75 MBPS",
+    "100 MBPS",
+    "150 MBPS",
+    "200 MBPS",
+    "300 MBPS"
+  ],
+  "welcomePlans": [
+    {
+      "id": 1,
+      "name": "Welcome Plan 50 Mbps",
+      "speed": "50 MBPS",
+      "months": 6,
+      "price": 2399,
+      "ottCount": 10,
+      "ottApps": [
+        "Zee5 Premium",
+        "Sony Liv Premium",
+        "Discovery Plus",
+        "Shemaroo Me",
+        "OM Tv",
+        "Fancode",
+        "Hubhopper",
+        "Playbox TV",
+        "Hotstar",
+        "itap"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Welcome Plan 100 Mbps (6 Months)",
+      "speed": "100 MBPS",
+      "months": 6,
+      "price": 2999,
+      "ottCount": 16,
+      "ottApps": [
+        "ShemarooMe",
+        "ZEE5",
+        "SonyPremium",
+        "Hungama",
+        "Hotstar_Super",
+        "Sunnxt",
+        "AAONXT",
+        "Discovery",
+        "Fancode",
+        "PlayboxTV",
+        "OMTV",
+        "DistroTV",
+        "HubHopper",
+        "KancchaLannka",
+        "RajTV",
+        "JioSaavn"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Welcome Plan 100 Mbps (12 Months)",
+      "speed": "100 MBPS",
+      "months": 12,
+      "price": 4999,
+      "ottCount": 16,
+      "ottApps": [
+        "ShemarooMe",
+        "ZEE5",
+        "SonyPremium",
+        "Hungama",
+        "Hotstar_Super",
+        "Sunnxt",
+        "AAONXT",
+        "Discovery",
+        "Fancode",
+        "PlayboxTV",
+        "OMTV",
+        "DistroTV",
+        "HubHopper",
+        "KancchaLannka",
+        "RajTV",
+        "JioSaavn"
+      ]
+    }
   ]
 }

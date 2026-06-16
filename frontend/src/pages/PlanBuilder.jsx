@@ -30,18 +30,37 @@ import {
   getDefaultPlanSelections,
   syncPlanSelections,
   computePlanQuote,
+  computeTermPlanQuote,
+  computeWelcomePlanQuote,
+  getTermOffers,
+  getTermPlanSpeeds,
   formatInr,
+  formatTermOfferDisplay,
   getOttAppsForPlan,
   searchPlansByBudget,
 } from "../lib/smartPlanEngine";
-import { ArrowDown, IndianRupee, Search, Send, SlidersHorizontal, Sparkles } from "lucide-react";
+import { ArrowDown, Gift, IndianRupee, Search, Send, SlidersHorizontal, Sparkles, Timer } from "lucide-react";
 
 function BillBreakdownCard({ quote, onBookPlan, showBookButton = false }) {
+  const isTerm = quote.planType === "term";
+  const isWelcome = quote.planType === "welcome";
+  const planTotalInclGst =
+    quote.planTotalInclGst ??
+    Math.round(((Number(quote.baseTotal) || 0) + (Number(quote.gst) || 0)) * 100) / 100;
+
   return (
     <Card className="border-yellow-200 bg-gradient-to-b from-white to-yellow-50/80 shadow-lg">
       <CardHeader>
         <CardTitle className="text-lg">Bill breakdown</CardTitle>
         <CardDescription>{quote.description}</CardDescription>
+        {isTerm && quote.freeMonths > 0 && (
+          <p className="text-xs font-medium text-green-700 mt-1">
+            {formatTermOfferDisplay({
+              totalMonths: quote.paidMonths ?? quote.totalMonths,
+              freeMonths: quote.freeMonths,
+            })}
+          </p>
+        )}
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="rounded-xl bg-slate-900 text-white p-5 text-center">
@@ -51,22 +70,53 @@ function BillBreakdownCard({ quote, onBookPlan, showBookButton = false }) {
           </p>
           <p className="text-sm text-white/80 mt-1">
             for {quote.months} month{quote.months > 1 ? "s" : ""}
+            {isTerm && quote.freeMonths > 0 ? ` (${quote.freeMonths} free)` : ""}
           </p>
         </div>
 
         <div className="space-y-2 text-sm text-slate-700">
-          <div className="flex justify-between">
-            <span>Base monthly price</span>
-            <span className="font-semibold">₹{formatInr(quote.baseMonthly)}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>GST (18%)</span>
-            <span className="font-semibold">₹{formatInr(quote.gst)}</span>
-          </div>
-          <div className="flex justify-between border-t border-slate-200 pt-2">
-            <span>Monthly rental (incl. GST)</span>
-            <span className="font-semibold">₹{formatInr(quote.monthlyInclGst)}</span>
-          </div>
+          {isWelcome ? (
+            <>
+              <div className="flex justify-between">
+                <span>Plan price (ex GST)</span>
+                <span className="font-semibold">₹{formatInr(quote.baseTotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>GST (18%)</span>
+                <span className="font-semibold">₹{formatInr(quote.gst)}</span>
+              </div>
+              <div className="flex justify-between border-t border-slate-200 pt-2">
+                <span>Plan total (incl. GST)</span>
+                <span className="font-semibold">₹{formatInr(planTotalInclGst)}</span>
+              </div>
+            </>
+          ) : isTerm ? (
+            <>
+              <div className="flex justify-between">
+                <span>Plan price (ex GST)</span>
+                <span className="font-semibold">₹{formatInr(quote.baseTotal)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>GST (18%)</span>
+                <span className="font-semibold">₹{formatInr(quote.gst)}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="flex justify-between">
+                <span>Base monthly price</span>
+                <span className="font-semibold">₹{formatInr(quote.baseMonthly)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>GST (18%)</span>
+                <span className="font-semibold">₹{formatInr(quote.gst)}</span>
+              </div>
+              <div className="flex justify-between border-t border-slate-200 pt-2">
+                <span>Monthly rental (incl. GST)</span>
+                <span className="font-semibold">₹{formatInr(quote.monthlyInclGst)}</span>
+              </div>
+            </>
+          )}
           <div className="flex justify-between">
             <span>One-time installation</span>
             <span className="font-semibold">
@@ -76,6 +126,22 @@ function BillBreakdownCard({ quote, onBookPlan, showBookButton = false }) {
         </div>
 
         <p className="text-xs text-slate-500">{quote.installNote}</p>
+
+        {isWelcome && quote.ottApps?.length > 0 && (
+          <div className="rounded-xl border border-slate-100 bg-white p-3">
+            <p className="text-xs font-semibold text-slate-900 mb-2">Included OTT apps</p>
+            <div className="flex flex-wrap gap-1.5">
+              {quote.ottApps.map((app) => (
+                <span
+                  key={app}
+                  className="text-[11px] font-medium bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full"
+                >
+                  {app}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="border-t border-slate-200 pt-3 space-y-1.5 text-xs text-slate-600">
           {quote.breakdown.map((row) => (
@@ -107,12 +173,16 @@ const initialSelections = getDefaultPlanSelections();
 
 const PlanBuilder = () => {
   const { toast } = useToast();
-  const { catalogSource, catalogLoading, refreshCatalog } = usePlanCatalog();
+  const { catalogSource, catalogLoading, refreshCatalog, website, termOffers, welcomePlans, welcomePlansEnabled } =
+    usePlanCatalog();
   const [tab, setTab] = useState("build");
   const [speedName, setSpeedName] = useState(initialSelections.speedName);
   const [iptvName, setIptvName] = useState(initialSelections.iptvName);
   const [ottName, setOttName] = useState(initialSelections.ottName);
   const [months, setMonths] = useState(6);
+  const [termSpeedName, setTermSpeedName] = useState(initialSelections.speedName);
+  const [termOfferId, setTermOfferId] = useState(1);
+  const [welcomePlanId, setWelcomePlanId] = useState(1);
   const [budget, setBudget] = useState(10000);
   const [busy, setBusy] = useState(false);
   const bookingFormRef = useRef(null);
@@ -133,9 +203,63 @@ const PlanBuilder = () => {
     [speedName, iptvName, ottName, months, catalogSource]
   );
 
+  const catalog = getPlanCatalog();
+  const resolvedTermOffers = useMemo(
+    () => (termOffers.length ? termOffers : getTermOffers(website)),
+    [termOffers, website, catalogSource]
+  );
+  const termSpeeds = useMemo(
+    () => getTermPlanSpeeds(website),
+    [website, catalogSource]
+  );
+  const selectedTermOffer = useMemo(
+    () =>
+      resolvedTermOffers.find((offer) => offer.id === Number(termOfferId)) ||
+      resolvedTermOffers[0],
+    [resolvedTermOffers, termOfferId]
+  );
+  const termQuote = useMemo(() => {
+    if (!selectedTermOffer || !termSpeedName) return null;
+    return computeTermPlanQuote({ speedName: termSpeedName, offer: selectedTermOffer });
+  }, [termSpeedName, selectedTermOffer, catalogSource]);
+  const selectedWelcomePlan = useMemo(
+    () =>
+      welcomePlans.find((plan) => plan.id === Number(welcomePlanId)) || welcomePlans[0],
+    [welcomePlans, welcomePlanId]
+  );
+  const welcomeQuote = useMemo(() => {
+    if (!selectedWelcomePlan) return null;
+    return computeWelcomePlanQuote(selectedWelcomePlan);
+  }, [selectedWelcomePlan, catalogSource]);
+  const activeQuote = useMemo(() => {
+    if (tab === "term" && termQuote) return termQuote;
+    if (tab === "welcome" && welcomeQuote) return welcomeQuote;
+    return quote;
+  }, [tab, termQuote, welcomeQuote, quote]);
   const budgetResults = useMemo(() => searchPlansByBudget(budget, 20), [budget, catalogSource]);
   const ottApps = useMemo(() => getOttAppsForPlan(ottName), [ottName, catalogSource]);
-  const catalog = getPlanCatalog();
+
+  React.useEffect(() => {
+    if (!welcomePlansEnabled && tab === "welcome") setTab("build");
+  }, [welcomePlansEnabled, tab]);
+
+  React.useEffect(() => {
+    if (termSpeeds.length && !termSpeeds.some((s) => s.name === termSpeedName)) {
+      setTermSpeedName(termSpeeds[0].name);
+    }
+  }, [termSpeeds, termSpeedName]);
+
+  React.useEffect(() => {
+    if (resolvedTermOffers.length && !resolvedTermOffers.some((o) => o.id === Number(termOfferId))) {
+      setTermOfferId(resolvedTermOffers[0].id);
+    }
+  }, [resolvedTermOffers, termOfferId]);
+
+  React.useEffect(() => {
+    if (welcomePlans.length && !welcomePlans.some((p) => p.id === Number(welcomePlanId))) {
+      setWelcomePlanId(welcomePlans[0].id);
+    }
+  }, [welcomePlans, welcomePlanId]);
 
   React.useEffect(() => {
     const synced = syncPlanSelections(selectionRef.current);
@@ -176,16 +300,20 @@ const PlanBuilder = () => {
     const request = {
       id: `req_${Date.now()}`,
       createdAt: new Date().toISOString(),
-      speed: quote.speed,
-      iptv: quote.iptv,
-      ott: quote.ott,
-      months: quote.months,
-      baseMonthly: quote.baseMonthly,
-      monthlyInclGst: quote.monthlyInclGst,
-      installation: quote.installation,
-      totalPayable: quote.totalPayable,
-      description: quote.description,
-      breakdown: quote.breakdown,
+      planType: activeQuote.planType || "custom",
+      speed: activeQuote.speed,
+      iptv: activeQuote.iptv,
+      ott: activeQuote.ott,
+      months: activeQuote.months,
+      baseMonthly: activeQuote.baseMonthly,
+      baseTotal: activeQuote.baseTotal,
+      monthlyInclGst: activeQuote.monthlyInclGst,
+      installation: activeQuote.installation,
+      totalPayable: activeQuote.totalPayable,
+      description: activeQuote.description,
+      breakdown: activeQuote.breakdown,
+      offerLabel: activeQuote.offerLabel,
+      welcomePlanId: activeQuote.welcomePlanId,
       contact: { ...contact },
     };
     try {
@@ -295,11 +423,23 @@ const PlanBuilder = () => {
           </div>
 
           <Tabs value={tab} onValueChange={setTab} className="space-y-8">
-            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 h-12 bg-white border border-slate-200 p-1">
-              <TabsTrigger value="build" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900">
+            <TabsList
+              className={`grid w-full max-w-3xl mx-auto h-auto md:h-12 bg-white border border-slate-200 p-1 gap-1 ${
+                welcomePlansEnabled ? "grid-cols-2 md:grid-cols-4" : "grid-cols-2 md:grid-cols-3"
+              }`}
+            >
+              <TabsTrigger value="build" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900 text-xs sm:text-sm">
                 Custom Builder
               </TabsTrigger>
-              <TabsTrigger value="budget" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900">
+              <TabsTrigger value="term" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900 text-xs sm:text-sm">
+                Term Plans
+              </TabsTrigger>
+              {welcomePlansEnabled ? (
+                <TabsTrigger value="welcome" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900 text-xs sm:text-sm">
+                  Welcome Plans
+                </TabsTrigger>
+              ) : null}
+              <TabsTrigger value="budget" className="rounded-lg data-[state=active]:bg-yellow-400 data-[state=active]:text-slate-900 text-xs sm:text-sm">
                 Budget Search
               </TabsTrigger>
             </TabsList>
@@ -399,7 +539,7 @@ const PlanBuilder = () => {
 
                   <div className="lg:hidden">
                     <BillBreakdownCard
-                      quote={quote}
+                      quote={activeQuote}
                       onBookPlan={scrollToBookingForm}
                       showBookButton
                     />
@@ -490,7 +630,7 @@ const PlanBuilder = () => {
                 <div className="hidden lg:block lg:col-span-1">
                   <div className="lg:sticky lg:top-28">
                     <BillBreakdownCard
-                      quote={quote}
+                      quote={activeQuote}
                       onBookPlan={scrollToBookingForm}
                       showBookButton
                     />
@@ -498,6 +638,300 @@ const PlanBuilder = () => {
                 </div>
               </div>
             </TabsContent>
+
+            <TabsContent value="term">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="lg:col-span-2 space-y-6">
+                  <Card className="border-slate-200 shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <Timer className="text-yellow-600" size={22} />
+                        Internet-only term plans
+                      </CardTitle>
+                      <CardDescription>
+                        Choose speed and term offer — pay for fewer months, get extra months free
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div>
+                        <Label>Internet speed</Label>
+                        <Select value={termSpeedName} onValueChange={setTermSpeedName}>
+                          <SelectTrigger className="mt-1.5 h-11">
+                            <SelectValue placeholder="Select speed" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {termSpeeds.map((s) => (
+                              <SelectItem key={s.name} value={s.name}>
+                                {s.name} — ₹{formatInr(s.price)}/mo
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Term offer</Label>
+                        <Select
+                          value={String(termOfferId)}
+                          onValueChange={(value) => setTermOfferId(Number(value))}
+                        >
+                          <SelectTrigger className="mt-1.5 h-11">
+                            <SelectValue placeholder="Select offer" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {resolvedTermOffers.map((offer) => (
+                              <SelectItem key={offer.id} value={String(offer.id)}>
+                                {formatTermOfferDisplay(offer)}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="lg:hidden">
+                    <BillBreakdownCard
+                      quote={activeQuote}
+                      onBookPlan={scrollToBookingForm}
+                      showBookButton
+                    />
+                  </div>
+
+                  <Card ref={bookingFormRef} id="plan-booking-form" className="border-slate-200 shadow-sm scroll-mt-28">
+                    <CardHeader>
+                      <CardTitle className="text-xl flex items-center gap-2">
+                        <Send size={20} className="text-yellow-600" />
+                        Your details &amp; request
+                      </CardTitle>
+                      <CardDescription>
+                        We will contact you to confirm feasibility and final pricing
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={submit} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="pb-name-term">Full name *</Label>
+                            <Input
+                              id="pb-name-term"
+                              name="name"
+                              className="mt-1.5 h-11"
+                              placeholder="Name / ಹೆಸರು"
+                              value={contact.name}
+                              onChange={onContactChange}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="pb-phone-term">Phone *</Label>
+                            <Input
+                              id="pb-phone-term"
+                              name="phone"
+                              className="mt-1.5 h-11"
+                              placeholder="Mobile number"
+                              value={contact.phone}
+                              onChange={onContactChange}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-email-term">Email (optional)</Label>
+                          <Input
+                            id="pb-email-term"
+                            name="email"
+                            type="email"
+                            className="mt-1.5 h-11"
+                            placeholder="you@example.com"
+                            value={contact.email}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-locality-term">Area / locality</Label>
+                          <Input
+                            id="pb-locality-term"
+                            name="locality"
+                            className="mt-1.5 h-11"
+                            placeholder="e.g. Ward, village near Tiptur"
+                            value={contact.locality}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-notes-term">Notes (optional)</Label>
+                          <Textarea
+                            id="pb-notes-term"
+                            name="notes"
+                            className="mt-1.5 min-h-[100px]"
+                            placeholder="e.g. Need connection by next week"
+                            value={contact.notes}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <Button
+                          type="submit"
+                          disabled={busy}
+                          className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 px-8 btn-shine"
+                        >
+                          {busy ? "Sending…" : "Send plan request"}
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="hidden lg:block lg:col-span-1">
+                  <div className="lg:sticky lg:top-28">
+                    <BillBreakdownCard
+                      quote={activeQuote}
+                      onBookPlan={scrollToBookingForm}
+                      showBookButton
+                    />
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+
+            {welcomePlansEnabled ? (
+            <TabsContent value="welcome">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="lg:col-span-2 space-y-6">
+                  <Card className="border-slate-200 shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <Gift className="text-yellow-600" size={22} />
+                        Special welcome plans
+                      </CardTitle>
+                      <CardDescription>
+                        Fixed bundle pricing — internet + OTT apps. Offer prices are ex GST; GST is added in the bill breakdown.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {welcomePlans.map((plan) => {
+                          const selected = Number(welcomePlanId) === plan.id;
+                          return (
+                            <button
+                              key={plan.id}
+                              type="button"
+                              onClick={() => setWelcomePlanId(plan.id)}
+                              className={`text-left rounded-xl border p-4 transition ${
+                                selected
+                                  ? "border-yellow-400 bg-yellow-50 shadow-sm"
+                                  : "border-slate-200 bg-white hover:border-yellow-200"
+                              }`}
+                            >
+                              <p className="text-xs font-bold uppercase tracking-wide text-yellow-700">
+                                Welcome Offer
+                              </p>
+                              <p className="mt-1 font-extrabold text-slate-900">{plan.name}</p>
+                              <p className="text-xs text-slate-500 mt-1">
+                                {plan.speed} · {plan.months} mo · {plan.ottCount} OTTs
+                              </p>
+                              <p className="mt-3 text-lg font-extrabold text-slate-900">
+                                ₹{formatInr(plan.price)}
+                              </p>
+                              <p className="text-xs text-slate-500">+ GST</p>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <div className="lg:hidden">
+                    <BillBreakdownCard
+                      quote={activeQuote}
+                      onBookPlan={scrollToBookingForm}
+                      showBookButton
+                    />
+                  </div>
+
+                  <Card className="border-slate-200 shadow-sm scroll-mt-28">
+                    <CardHeader>
+                      <CardTitle className="text-xl flex items-center gap-2">
+                        <Send size={20} className="text-yellow-600" />
+                        Your details &amp; request
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={submit} className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="pb-name-welcome">Full name *</Label>
+                            <Input
+                              id="pb-name-welcome"
+                              name="name"
+                              className="mt-1.5 h-11"
+                              value={contact.name}
+                              onChange={onContactChange}
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="pb-phone-welcome">Phone *</Label>
+                            <Input
+                              id="pb-phone-welcome"
+                              name="phone"
+                              className="mt-1.5 h-11"
+                              value={contact.phone}
+                              onChange={onContactChange}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-email-welcome">Email (optional)</Label>
+                          <Input
+                            id="pb-email-welcome"
+                            name="email"
+                            type="email"
+                            className="mt-1.5 h-11"
+                            value={contact.email}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-locality-welcome">Area / locality</Label>
+                          <Input
+                            id="pb-locality-welcome"
+                            name="locality"
+                            className="mt-1.5 h-11"
+                            value={contact.locality}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="pb-notes-welcome">Notes (optional)</Label>
+                          <Textarea
+                            id="pb-notes-welcome"
+                            name="notes"
+                            className="mt-1.5 min-h-[100px]"
+                            value={contact.notes}
+                            onChange={onContactChange}
+                          />
+                        </div>
+                        <Button
+                          type="submit"
+                          disabled={busy}
+                          className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-slate-900 rounded-full h-12 px-8 btn-shine"
+                        >
+                          {busy ? "Sending…" : "Send plan request"}
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="hidden lg:block lg:col-span-1">
+                  <div className="lg:sticky lg:top-28">
+                    <BillBreakdownCard
+                      quote={activeQuote}
+                      onBookPlan={scrollToBookingForm}
+                      showBookButton
+                    />
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            ) : null}
 
             <TabsContent value="budget">
               <Card className="border-slate-200 shadow-sm">

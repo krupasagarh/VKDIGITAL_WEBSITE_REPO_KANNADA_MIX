@@ -12,8 +12,10 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import QuickPay from "./pages/QuickPay";
 import PlanBuilder from "./pages/PlanBuilder";
+import Account from "./pages/Account";
 import { Toaster } from "./components/ui/toaster";
 import { PlanCatalogProvider } from "./context/PlanCatalogContext";
+import { AuthProvider } from "./context/AuthContext";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 
 function ScrollToTop() {
@@ -29,6 +31,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <PlanCatalogProvider>
+        <AuthProvider>
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -43,6 +46,7 @@ function App() {
           <Route path="/iptv" element={<Entertainment />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/quick-pay" element={<QuickPay />} />
           {/* Path is /plan-builder (with final "r"); /plan-builde and similar typos won't match. */}
           <Route path="/plan-builder" element={<PlanBuilder />} />
@@ -53,6 +57,7 @@ function App() {
         <Footer />
         <WhatsAppFloat />
         <Toaster />
+        </AuthProvider>
         </PlanCatalogProvider>
       </BrowserRouter>
     </div>
