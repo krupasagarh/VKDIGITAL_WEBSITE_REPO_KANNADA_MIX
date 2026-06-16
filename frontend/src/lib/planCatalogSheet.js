@@ -20,6 +20,16 @@ function gvizRowsToMatrix(response) {
   return rows.map((row) => (row.c || []).map(cellValue));
 }
 
+function isHeaderRow(row) {
+  const label = (row?.[0] || "").trim().toUpperCase();
+  return label === "SPEED";
+}
+
+function dataRowsFromMatrix(matrix) {
+  if (!matrix.length) return [];
+  return isHeaderRow(matrix[0]) ? matrix.slice(1) : matrix;
+}
+
 function parsePrice(raw) {
   const text = String(raw || "")
     .trim()
@@ -30,10 +40,10 @@ function parsePrice(raw) {
   return Number.isFinite(value) ? value : null;
 }
 
-function rowPairs(matrix, nameCol, priceCol) {
+function rowPairs(rows, nameCol, priceCol) {
   const items = [];
   const seen = new Set();
-  for (const row of matrix.slice(1)) {
+  for (const row of rows) {
     const name = (row[nameCol] || "").trim();
     if (!name || seen.has(name)) continue;
     const price = parsePrice(row[priceCol]);
@@ -44,10 +54,10 @@ function rowPairs(matrix, nameCol, priceCol) {
   return items;
 }
 
-function rowList(matrix, col) {
+function rowList(rows, col) {
   const items = [];
   const seen = new Set();
-  for (const row of matrix.slice(1)) {
+  for (const row of rows) {
     const value = (row[col] || "").trim();
     if (!value || seen.has(value)) continue;
     items.push(value);
@@ -57,14 +67,15 @@ function rowList(matrix, col) {
 }
 
 export function parseDataSheetMatrix(matrix) {
+  const rows = dataRowsFromMatrix(matrix);
   return {
-    speeds: rowPairs(matrix, 0, 1),
-    iptvPlans: rowPairs(matrix, 3, 4),
-    ottPlans: rowPairs(matrix, 6, 7),
+    speeds: rowPairs(rows, 0, 1),
+    iptvPlans: rowPairs(rows, 3, 4),
+    ottPlans: rowPairs(rows, 6, 7),
     ottApps: {
-      10: rowList(matrix, 9),
-      16: rowList(matrix, 10),
-      26: rowList(matrix, 11),
+      10: rowList(rows, 9),
+      16: rowList(rows, 10),
+      26: rowList(rows, 11),
     },
     gstRate: 0.18,
     installFee: 1000,
